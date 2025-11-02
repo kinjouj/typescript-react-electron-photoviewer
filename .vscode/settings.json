@@ -1,0 +1,16 @@
+{
+  "files.exclude": {
+    "yarn.lock": true,
+    ".npmrc": true,
+    "package-lock.json": true
+  },
+  "[typescript]": {
+    "editor.indentSize": "tabSize",
+    "editor.tabSize": 2,
+    "typescript.preferences.quoteStyle": "single"
+  },
+  "[typescriptreact]": {
+    "editor.tabSize": 2,
+    "typescript.preferences.quoteStyle": "single"
+  }
+}

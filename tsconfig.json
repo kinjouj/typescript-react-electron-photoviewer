@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "node_modules/.tsBuildInfo",
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "types": ["node", "electron"]
+  },
+  "include": ["src/**/*"]
+}
