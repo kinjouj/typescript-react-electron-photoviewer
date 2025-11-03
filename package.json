@@ -1,11 +1,17 @@
 {
+  "name": "photoviewer",
+  "version": "0.0.1",
+  "author": "kinjouj",
   "main": "dist/main.js",
   "license": "MIT",
   "scripts": {
     "check": "tsc --noEmit",
     "lint": "npx eslint --cache --cache-location=node_modules/.eslintcache",
     "build": "npm run check && npm run lint && vite build",
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-builder --config builder.json",
+    "package:win": "electron-builder --config builder.json --win",
+    "package:linux": "electron-builder --config builder.json --linux"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.4.0",
@@ -14,6 +20,7 @@
     "@types/react-slick": "^0.23.13",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "electron": "^39.0.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.37.0",
     "eslint-plugin-jest": "^29.0.1",
     "eslint-plugin-react": "^7.37.5",
