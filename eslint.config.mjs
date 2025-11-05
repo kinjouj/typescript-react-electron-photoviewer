@@ -86,7 +86,7 @@ export default tseslint.config(
       ],
       "react/button-has-type": "error",
       "react/function-component-definition": ["error", {
-        "namedComponents": "arrow-function", 
+        "namedComponents": "arrow-function",
         "unnamedComponents": []
       }],
       "react/jsx-no-bind": "error",
