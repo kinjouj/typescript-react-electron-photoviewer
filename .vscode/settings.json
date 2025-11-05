@@ -7,10 +7,15 @@
   "[typescript]": {
     "editor.indentSize": "tabSize",
     "editor.tabSize": 2,
-    "typescript.preferences.quoteStyle": "single"
+    "typescript.preferences.quoteStyle": "single",
   },
   "[typescriptreact]": {
     "editor.tabSize": 2,
     "typescript.preferences.quoteStyle": "single"
-  }
+  },
+  "[javascript]": {
+    "editor.tabSize": 2
+  },
+  "typescript.format.semicolons": "insert",
+  "typescript.preferences.preferTypeOnlyAutoImports": true
 }

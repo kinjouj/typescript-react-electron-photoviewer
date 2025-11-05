@@ -8,7 +8,7 @@ const NextArrow = (props: CustomArrowProps): React.JSX.Element => {
   };
 
   return (
-    <button onClick={onClick} className="slick-arrow" style={nextArrowStyle} {...restProps}>
+    <button type="button" onClick={onClick} className="slick-arrow" style={nextArrowStyle} {...restProps}>
       <i className="fas fa-arrow-right"></i>
     </button>
   );

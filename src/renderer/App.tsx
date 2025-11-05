@@ -1,7 +1,4 @@
-import { useRef } from 'react';
-import { useSliderKeyDownController } from './hooks';
 import { PhotoViewSlider } from './components';
-import type Slider from 'react-slick';
 
 const useLocationHash = (): string | null => {
   try {
@@ -15,15 +12,13 @@ const useLocationHash = (): string | null => {
 
 const App = (): React.JSX.Element => {
   const path = useLocationHash();
-  const slideRef = useRef<Slider>(null);
-  useSliderKeyDownController(slideRef);
 
   if (path === null) {
     return (<div>Error</div>);
   }
 
   return (
-    <PhotoViewSlider path={path} sliderRef={slideRef} />
+    <PhotoViewSlider path={path} />
   );
 };
 

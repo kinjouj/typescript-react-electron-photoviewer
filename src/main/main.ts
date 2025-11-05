@@ -1,25 +1,24 @@
 import { app, dialog, BrowserWindow, ipcMain } from 'electron';
-import { RENDERER_CHANNEL_REQUEST_FILES } from '../constants';
+import { RENDERER_CHANNEL_REQUEST_FILES, RENDERER_CHANNEL_UPDATE_TITLE } from '../constants';
 import Client from './api/client';
 import * as path from 'node:path';
 
 app.disableHardwareAcceleration();
 
 const setupIPCListener = (): void => {
-  // Renderer(React側)からデータ要求を受け付けてデータを返す
   ipcMain.handle(RENDERER_CHANNEL_REQUEST_FILES, async (event, requestPath: string): Promise<string[]> => {
     if (!requestPath) {
       return [];
     }
 
-    const files = await Client.getFiles(requestPath);
+    return await Client.getFiles(requestPath);
+  });
+  ipcMain.on(RENDERER_CHANNEL_UPDATE_TITLE, (event, index: number, dataSize: number, path: string): void => {
     const window = BrowserWindow.fromWebContents(event.sender);
 
     if (window && !window.isDestroyed()) {
-      window.setTitle(`${requestPath}: ${files.length}`);
+      window.setTitle(`${path}:  (${index}/${dataSize})`);
     }
-
-    return files;
   });
 };
 
@@ -28,7 +27,6 @@ const createWindow = async (selectedPath: string): Promise<void> => {
   // const currentDisplay = screen.getDisplayNearestPoint(cursorPoint);
 
   const win = new BrowserWindow({
-    darkTheme: true,
     autoHideMenuBar: true,
     center: true,
     webPreferences: {

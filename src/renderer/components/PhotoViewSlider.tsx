@@ -1,55 +1,26 @@
-import { useEffect, useState } from 'react';
-import Slider, { type Settings } from 'react-slick';
-import { ClickableImage, NextArrow, PrevArrow } from '.';
+import { useEffect, useMemo, useRef } from 'react';
+import Slider from 'react-slick';
 import { ClipLoader } from 'react-spinners';
+import { ClickableImage, NextArrow, PrevArrow } from '.';
+import { useFetchFiles, useSliderAfterChangeListener, useSliderKeyDownListener } from '../hooks';
+import { SLIDER_BASE_SETTINGS } from '../../constants';
+import type { PhotoViewSliderProps } from './PhotoViewSlider.types';
 
-const settings: Settings = {
-  swipe: false,
-  draggable: false,
-  touchMove: false,
-  dots: false,
-  infinite: true,
-  autoplay: true,
-  autoplaySpeed: 2000,
-  slidesToShow: 1,
-  arrows: true,
-  prevArrow: <PrevArrow />,
-  nextArrow: <NextArrow />,
-  pauseOnFocus: false,
-  pauseOnHover: false,
-};
+const PhotoViewSlider = ({ path }: PhotoViewSliderProps): React.JSX.Element => {
+  const sliderRef = useRef<Slider | null>(null);
+  const { data, loading } = useFetchFiles(path);
+  const { isPlaying, slideSpeed } = useSliderKeyDownListener(sliderRef);
+  const { afterChangeHandler } = useSliderAfterChangeListener(path, data);
+  const settings = useMemo(() => ({
+    ...SLIDER_BASE_SETTINGS,
+    autoplay: isPlaying,
+    autoplaySpeed: slideSpeed,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    afterChange: afterChangeHandler,
+  }), [ isPlaying, slideSpeed, afterChangeHandler ]);
 
-interface PhotoViewSliderProps {
-  path: string
-  sliderRef: React.RefObject<Slider | null>
-}
-
-const PhotoViewSlider = ({ path, sliderRef }: PhotoViewSliderProps): React.JSX.Element => {
-  const [ data, setData ] = useState<string[] | null>(null);
-  const [ loading, setLoading ] = useState(true);
-
-  useEffect(() => {
-    let timer: ReturnType<typeof window.setTimeout> | null = null;
-
-    void (async (): Promise<void> => {
-      try {
-        const files = await window.electronAPI.requestFiles(path);
-        timer = setTimeout(() => {
-          setData(files);
-          setLoading(false);
-        }, 1000);
-      } catch {
-        setData(null);
-        setLoading(false);
-      }
-    })();
-
-    return (): void => {
-      if (timer !== null) {
-        clearTimeout(timer);
-      }
-    };
-  }, [path]);
+  useEffect((): void => afterChangeHandler(0), [afterChangeHandler]);
 
   if (loading) {
     return (<ClipLoader loading={loading} className="clip-loader" />);
@@ -70,6 +41,11 @@ const PhotoViewSlider = ({ path, sliderRef }: PhotoViewSliderProps): React.JSX.E
           );
         })}
       </Slider>
+      <div className="slick-footer">
+        <div className="slick-footer-right-pane">
+          {slideSpeed}
+        </div>
+      </div>
     </div>
   );
 };

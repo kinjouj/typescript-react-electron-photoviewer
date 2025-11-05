@@ -43,5 +43,5 @@ export default defineConfig({
         index: resolve(__dirname, 'index.html'),
       }
     },
-  },
+  }
 });

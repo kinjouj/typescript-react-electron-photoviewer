@@ -1,4 +1,3 @@
-import eslint from "@eslint/js";
 import globals from "globals";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -50,10 +49,31 @@ export default tseslint.config(
       "@stylistic/semi": ["error", "always"],
       "@stylistic/brace-style": ["error", "1tbs", { allowSingleLine: true }],
       "@stylistic/max-statements-per-line": ["error", { max: 2 }],
+      "@stylistic/spaced-comment": "off",
       "@typescript-eslint/array-type": "error",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          "selector": ["variable", "function"],
+          "format": ["camelCase", "PascalCase", "UPPER_CASE"],
+          "leadingUnderscore": "allow"
+        },
+        {
+          "selector": ["typeAlias", "interface", "class", "enum"],
+          "format": ["PascalCase"]
+        },
+        {
+          "selector": ["variable", "function"],
+          "format": ["PascalCase"],
+          "custom": {
+            "regex": "^[A-Z]",
+            "match": true
+          }
+        }
+      ],
       "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-unused-vars": [
         "warn",
@@ -63,7 +83,16 @@ export default tseslint.config(
           "caughtErrorsIgnorePattern": "^_",
           "destructuredArrayIgnorePattern": "^_"
         }
-      ]
+      ],
+      "react/button-has-type": "error",
+      "react/function-component-definition": ["error", {
+        "namedComponents": "arrow-function", 
+        "unnamedComponents": []
+      }],
+      "react/jsx-no-bind": "error",
+      "react/jsx-no-leaked-render": "error",
+      "react/no-array-index-key": "error",
+      "react/jsx-no-useless-fragment": "error"
     },
     settings: {
       react: {
