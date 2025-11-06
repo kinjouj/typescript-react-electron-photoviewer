@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import { ClipLoader } from 'react-spinners';
 import { ClickableImage, NextArrow, PrevArrow } from '.';
 import { useFetchFiles, useSliderAfterChangeListener, useSliderKeyDownListener } from '../hooks';
-import { SLIDER_BASE_SETTINGS } from '../../constants';
+import { SLIDER_BASE_SETTINGS } from '../constants';
 import type { PhotoViewSliderProps } from './PhotoViewSlider.types';
 
 const PhotoViewSlider = ({ path }: PhotoViewSliderProps): React.JSX.Element => {

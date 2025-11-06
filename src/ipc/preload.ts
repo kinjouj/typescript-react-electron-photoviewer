@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { RENDERER_CHANNEL_REQUEST_FILES, RENDERER_CHANNEL_UPDATE_TITLE } from '../constants';
+import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants';
 
 /*
 type PayloadData = {
@@ -19,9 +19,9 @@ ipcRenderer.on(RENDERER_CHANNEL_REQUEST_FILES, (event, data: PayloadData) => {
 
 contextBridge.exposeInMainWorld('electronAPI', {
   requestFiles: (requestPath: string): Promise<string[]> => {
-    return ipcRenderer.invoke(RENDERER_CHANNEL_REQUEST_FILES, requestPath);
+    return ipcRenderer.invoke(IPC_CHANNEL_REQUEST_FILES, requestPath);
   },
   updateTitle: (index: number, dataSize: number, path: string): void => {
-    ipcRenderer.send(RENDERER_CHANNEL_UPDATE_TITLE, index, dataSize, path);
+    ipcRenderer.send(IPC_CHANNEL_UPDATE_TITLE, index, dataSize, path);
   },
 });

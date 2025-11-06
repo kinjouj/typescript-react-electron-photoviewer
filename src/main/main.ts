@@ -1,19 +1,19 @@
 import { app, dialog, BrowserWindow, ipcMain } from 'electron';
-import { RENDERER_CHANNEL_REQUEST_FILES, RENDERER_CHANNEL_UPDATE_TITLE } from '../constants';
+import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants';
 import Client from './api/client';
 import * as path from 'node:path';
 
 app.disableHardwareAcceleration();
 
 const setupIPCListener = (): void => {
-  ipcMain.handle(RENDERER_CHANNEL_REQUEST_FILES, async (event, requestPath: string): Promise<string[]> => {
+  ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, async (event, requestPath: string): Promise<string[]> => {
     if (!requestPath) {
       return [];
     }
 
     return await Client.getFiles(requestPath);
   });
-  ipcMain.on(RENDERER_CHANNEL_UPDATE_TITLE, (event, index: number, dataSize: number, path: string): void => {
+  ipcMain.on(IPC_CHANNEL_UPDATE_TITLE, (event, index: number, dataSize: number, path: string): void => {
     const window = BrowserWindow.fromWebContents(event.sender);
 
     if (window && !window.isDestroyed()) {
@@ -47,7 +47,6 @@ const createWindow = async (selectedPath: string): Promise<void> => {
 
 app.whenReady().then(async () => {
   setupIPCListener();
-
   const result = await dialog.showOpenDialog({
     title: 'photoviewer',
     properties: ['openDirectory'],

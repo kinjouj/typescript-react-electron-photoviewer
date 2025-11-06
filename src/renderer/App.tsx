@@ -3,6 +3,7 @@ import { PhotoViewSlider } from './components';
 const useLocationHash = (): string | null => {
   try {
     const hash = location.hash.substring(1);
+
     return decodeURIComponent(hash);
   } catch (e) {
     console.error(e);

@@ -1,5 +1,9 @@
 {
+  "editor.tabSize": 2,
   "files.exclude": {
+    "dist": true,
+    "node_modules": true,
+    "release": true,
     "yarn.lock": true,
     ".npmrc": true,
     "package-lock.json": true

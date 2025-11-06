@@ -1,18 +1,50 @@
-## typescript-react-electron-photoviewer
+## typeScript-react-electron-photoviewer
 
 
-### Mouse Action
+### Prerequisites
 
 
-* Right Click: 画像を別窓で開く
-* Left Click: 画像をスライドする(画像の左側なら前、右側なら次)
+* Node.js (LTS version recommended)
+* npm or yarn
 
 
-### Keyboard Action
+### Installation
 
 
-* ↑: スピードアップ
-* ←: 前の画像
-* →: 次の画像(Enterでも可能)
-* ↓: スピードダウン
-* スペース: オートプレイトグル
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/kinjouj/typescript-react-electron-photoviewer.git
+    cd typescript-react-electron-photoviewer
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+
+### Running the Application
+
+
+```bash
+npm start
+# or
+yarn start
+```
+
+
+### Controls (Buttons & Mouse)
+
+
+| Action | Control |
+|:---|:---|
+|**Next Image**|$\rightarrow$|
+|**Previous Image**|$\leftarrow$|
+|**Speed Up**|$\uparrow$|
+|**Speed Down**|$\downarrow$|
+|**Play/Pause**|Space Key|
+|**Mouse Left Click(Image Left Half)**|Previous Image|
+|**Mouse Left Click(Image Right Half)**|Next Image|
+|**Mouse Right Click**|Open Image|

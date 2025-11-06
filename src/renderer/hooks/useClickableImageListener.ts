@@ -2,7 +2,9 @@ import { useCallback, useState } from 'react';
 import type Slider from 'react-slick';
 import type { UseClickableImageListenerResult } from './useClickableImageListener.types';
 
-const isMouseOverLeftZone = (e: React.MouseEvent<HTMLImageElement>): boolean => e.nativeEvent.offsetX < e.currentTarget.width / 2;
+const isMouseOverLeftZone = (e: React.MouseEvent<HTMLImageElement>): boolean => {
+  return e.nativeEvent.offsetX < e.currentTarget.width / 2;
+};
 
 export const useClickableImageListener = (slideRef: React.RefObject<Slider | null>): UseClickableImageListenerResult => {
   const [ cursor, setCursor ] = useState<React.CSSProperties['cursor']>('default');

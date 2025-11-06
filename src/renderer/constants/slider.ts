@@ -1,7 +1,5 @@
 import type { Settings } from 'react-slick';
 
-export const RENDERER_CHANNEL_REQUEST_FILES = 'file:request-files';
-export const RENDERER_CHANNEL_UPDATE_TITLE = 'window:update-title';
 export const SLIDER_BASE_SETTINGS: Partial<Settings> = {
   lazyLoad: 'ondemand',
   swipe: false,
