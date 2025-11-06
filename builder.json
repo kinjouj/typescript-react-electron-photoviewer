@@ -1,8 +1,16 @@
 {
   "appId": "kinjouj.app.photoviewer",
   "productName": "photoviewer",
-  "directories": { "output": "release" },
-  "files": [ "dist/**/*" ],
-  "win": { "target": "portable" },
-  "linux": { "target": ["AppImage"] }
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "win": {
+    "target": "portable"
+  },
+  "linux": {
+    "target": ["AppImage"]
+  }
 }
