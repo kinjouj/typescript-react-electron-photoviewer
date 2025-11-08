@@ -1,7 +1,7 @@
+import * as path from 'node:path';
 import { app, dialog, BrowserWindow, ipcMain } from 'electron';
 import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants';
 import Client from './api/client';
-import * as path from 'node:path';
 
 app.disableHardwareAcceleration();
 

@@ -1,26 +1,23 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import Slider from 'react-slick';
 import { ClipLoader } from 'react-spinners';
-import { ClickableImage, NextArrow, PrevArrow } from '.';
-import { useFetchFiles, useSliderAfterChangeListener, useSliderKeyDownListener } from '../hooks';
-import { SLIDER_BASE_SETTINGS } from '../constants';
+import {
+  useFetchFiles,
+  usePlayControlListener,
+  useSliderAfterChangeListener,
+  useSliderKeyDownListener,
+  useSliderSettings
+} from '../hooks';
+import { ClickableImage, PlayingButton } from '.';
 import type { PhotoViewSliderProps } from './PhotoViewSlider.types';
 
 const PhotoViewSlider = ({ path }: PhotoViewSliderProps): React.JSX.Element => {
   const sliderRef = useRef<Slider | null>(null);
   const { data, loading } = useFetchFiles(path);
-  const { isPlaying, slideSpeed } = useSliderKeyDownListener(sliderRef);
+  const { isPlaying, onTogglePlaying } = usePlayControlListener(sliderRef);
+  const { speed } = useSliderKeyDownListener(sliderRef, onTogglePlaying);
   const { afterChangeHandler } = useSliderAfterChangeListener(path, data);
-  const settings = useMemo(() => ({
-    ...SLIDER_BASE_SETTINGS,
-    autoplay: isPlaying,
-    autoplaySpeed: slideSpeed,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-    afterChange: afterChangeHandler,
-  }), [ isPlaying, slideSpeed, afterChangeHandler ]);
-
-  useEffect((): void => afterChangeHandler(0), [afterChangeHandler]);
+  const settings = useSliderSettings(isPlaying, speed, afterChangeHandler);
 
   if (loading) {
     return (<ClipLoader loading={loading} className="clip-loader" />);
@@ -42,8 +39,11 @@ const PhotoViewSlider = ({ path }: PhotoViewSliderProps): React.JSX.Element => {
         })}
       </Slider>
       <div className="slick-footer">
+        <div className="slick-footer-left-pane">
+          <PlayingButton isPlaying={isPlaying} onTogglePlaying={onTogglePlaying} />
+        </div>
         <div className="slick-footer-right-pane">
-          {slideSpeed}
+          {speed}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+export type AfterChangeCallback = (page: number) => void;
 export interface UseSliderAfterChangeListenerResult {
-  afterChangeHandler: (currentSlide: number) => void
+  afterChangeHandler: AfterChangeCallback
 }

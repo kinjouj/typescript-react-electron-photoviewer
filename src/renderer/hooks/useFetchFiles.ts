@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import RendererClient from '../api/rendererClient';
-import type { UseFetchFilesResult } from './useFetchFiles.types';
+
+interface UseFetchFilesResult {
+  data: string[] | null
+  loading: boolean
+}
 
 export const useFetchFiles = (path: string): UseFetchFilesResult => {
   const [ data, setData ] = useState<string[] | null>(null);

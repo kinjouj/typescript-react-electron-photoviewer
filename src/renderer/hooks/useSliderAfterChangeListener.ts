@@ -1,15 +1,17 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import RendererClient from '../api/rendererClient';
 import type { UseSliderAfterChangeListenerResult } from './useSliderAfterChangeListener.types';
 
 export const useSliderAfterChangeListener = (path: string, data: string[] | null): UseSliderAfterChangeListenerResult => {
-  const afterChangeHandler = useCallback((currentSlide: number) => {
+  const afterChangeHandler = useCallback((page: number) => {
     if (data === null) {
       return;
     }
 
-    RendererClient.updateWindowTitle(currentSlide + 1, data.length, path);
+    RendererClient.updateWindowTitle(page + 1, data.length, path);
   }, [ path, data ]);
+
+  useEffect((): void => afterChangeHandler(0), [afterChangeHandler]);
 
   return { afterChangeHandler };
 };

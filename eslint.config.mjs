@@ -4,8 +4,10 @@ import stylistic from "@stylistic/eslint-plugin";
 import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
-import checkFile from 'eslint-plugin-check-file';
 import globals from "globals";
+import checkFile from "eslint-plugin-check-file";
+import importPlugin from 'eslint-plugin-import';
+import inlinePropsPlugin from "eslint-plugin-no-inline-props";
 
 export default defineConfig(
   { ignores: ["**/*.js", "**/*.mjs"] },
@@ -16,6 +18,7 @@ export default defineConfig(
   react.configs.flat.recommended,
   react.configs.flat["jsx-runtime"],
   reactHooks.configs.flat.recommended,
+  inlinePropsPlugin.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
@@ -35,6 +38,7 @@ export default defineConfig(
       "react-hooks": reactHooks,
       "@stylistic": stylistic,
       "check-file": checkFile,
+      "import": importPlugin,
     },
     rules: {
       "curly": ["error", "all"],
@@ -101,13 +105,32 @@ export default defineConfig(
       "check-file/filename-naming-convention": [
         "error",
         {
-          "**/index.{ts,tsx}": "CAMEL_CASE",
+          "**/hooks/!(index).{ts,tsx}": "use[A-Z][a-zA-Z0-9]*",
+          "**/components/!(index).{jsx,tsx}": "PASCAL_CASE",
+          "**/constants/*.ts": "CAMEL_CASE",
+          "**/reducers/*.ts": "CAMEL_CASE",
           "**/api/*": "CAMEL_CASE",
-          "**/hooks/!(index).ts": "use[A-Z][a-zA-Z0-9]*",
-          "**/!(index).{jsx,tsx}": "PASCAL_CASE",
+          "**/index.{ts,tsx}": "CAMEL_CASE",
         },
         {
           ignoreMiddleExtensions: true,
+        },
+      ],
+      "import/order": [
+        "error",
+        {
+          "groups": [
+            "builtin",
+            "external",
+            [
+              "internal",
+              "parent",
+              "sibling",
+            ],
+            "index",
+            "type",
+          ],
+          "newlines-between": "never",
         },
       ],
     },
