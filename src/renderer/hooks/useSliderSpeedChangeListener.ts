@@ -8,23 +8,17 @@ interface UseSliderSpeedChangeListenerResult {
 
 export const useSliderSpeedChangeListener = (): UseSliderSpeedChangeListenerResult => {
   const [ speed, setSpeed ] = useState(3000);
-  const sliderSpeedChangeHandler = useCallback((event: KeyboardEvent) => {
-    setSpeed((currentSpeed) => {
-      switch (event.key) {
-        case KEY_ARROW_UP:
-          return Math.max(SLIDER_MIN_SPEED, currentSpeed - SLIDER_SPEED_STEP);
 
-        case KEY_ARROW_DOWN:
-          return Math.min(SLIDER_MAX_SPEED, currentSpeed + SLIDER_SPEED_STEP);
-
-        default:
-          return currentSpeed;
-      }
-    });
+  const speedDownHandler = useCallback(() => {
+    setSpeed((currentSpeed) => Math.min(SLIDER_MAX_SPEED, currentSpeed + SLIDER_SPEED_STEP));
   }, []);
 
-  useKey(KEY_ARROW_UP, sliderSpeedChangeHandler);
-  useKey(KEY_ARROW_DOWN, sliderSpeedChangeHandler);
+  const speedUpHandler = useCallback(() => {
+    setSpeed((currentSpeed) => Math.max(SLIDER_MIN_SPEED, currentSpeed - SLIDER_SPEED_STEP));
+  }, []);
+
+  useKey(KEY_ARROW_UP, speedDownHandler);
+  useKey(KEY_ARROW_DOWN, speedUpHandler);
 
   return { speed };
 };

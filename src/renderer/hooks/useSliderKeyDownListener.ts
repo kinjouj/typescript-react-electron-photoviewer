@@ -12,7 +12,7 @@ interface UseSliderKeyDownListenerResult {
 
 export const useSliderKeyDownListener = (sliderRef: SliderRef, onTogglePlay: OnTogglePlayingCallback): UseSliderKeyDownListenerResult => {
   const { speed } = useSliderSpeedChangeListener();
-  const playChangeHandler = useCallback((_event: KeyboardEvent) => onTogglePlay(), [onTogglePlay]);
+  const playChangeHandler = useCallback(() => onTogglePlay(), [onTogglePlay]);
   useKey(KEY_SPACE, playChangeHandler);
   useSliderNavigationListener(sliderRef);
 

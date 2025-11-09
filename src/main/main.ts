@@ -38,15 +38,18 @@ const createWindow = async (selectedPath: string): Promise<void> => {
   });
   const htmlFile = path.resolve(__dirname, 'index.html');
   await win.loadURL(`file://${htmlFile}#${selectedPath}`);
+  /*
   win.once('ready-to-show', () => {
     if (!win.isDestroyed()) {
-      // win.webContents.openDevTools({ mode: 'detach' });
+      win.webContents.openDevTools({ mode: 'detach' });
     }
   });
+  */
 };
 
 app.whenReady().then(async () => {
   setupIPCListener();
+
   const result = await dialog.showOpenDialog({
     title: 'photoviewer',
     properties: ['openDirectory'],

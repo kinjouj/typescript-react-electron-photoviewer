@@ -3,7 +3,7 @@ import RendererClient from '../api/rendererClient';
 import type { UseSliderAfterChangeListenerResult } from './useSliderAfterChangeListener.types';
 
 export const useSliderAfterChangeListener = (path: string, data: string[] | null): UseSliderAfterChangeListenerResult => {
-  const afterChangeHandler = useCallback((page: number) => {
+  const updateTitle = useCallback((page: number) => {
     if (data === null) {
       return;
     }
@@ -11,7 +11,15 @@ export const useSliderAfterChangeListener = (path: string, data: string[] | null
     RendererClient.updateWindowTitle(page + 1, data.length, path);
   }, [ path, data ]);
 
-  useEffect((): void => afterChangeHandler(0), [afterChangeHandler]);
+  const afterChangeHandler = useCallback((page: number) => updateTitle(page), [updateTitle]);
+
+  useEffect(() => {
+    if (data === null) {
+      return;
+    }
+
+    updateTitle(0);
+  }, [ data, updateTitle ]);
 
   return { afterChangeHandler };
 };

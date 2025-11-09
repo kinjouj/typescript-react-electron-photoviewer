@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import Slider from 'react-slick';
 import { ClipLoader } from 'react-spinners';
 import {
@@ -18,6 +18,17 @@ const PhotoViewSlider = ({ path }: PhotoViewSliderProps): React.JSX.Element => {
   const { speed } = useSliderKeyDownListener(sliderRef, onTogglePlaying);
   const { afterChangeHandler } = useSliderAfterChangeListener(path, data);
   const settings = useSliderSettings(isPlaying, speed, afterChangeHandler);
+  const slides = useMemo(() => {
+    if (data === null) {
+      return [];
+    }
+
+    return data.map((file) => (
+      <div key={file} className="slick-image-block">
+        <ClickableImage src={file} sliderRef={sliderRef} />
+      </div>
+    ));
+  }, [data]);
 
   if (loading) {
     return (<ClipLoader loading={loading} className="clip-loader" />);
@@ -30,13 +41,7 @@ const PhotoViewSlider = ({ path }: PhotoViewSliderProps): React.JSX.Element => {
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Slider {...settings} ref={sliderRef}>
-        {data.map((file) => {
-          return (
-            <div key={file} className="slick-image-block">
-              <ClickableImage src={file} sliderRef={sliderRef} />
-            </div>
-          );
-        })}
+        {slides}
       </Slider>
       <div className="slick-footer">
         <div className="slick-footer-left-pane">

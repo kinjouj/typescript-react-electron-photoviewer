@@ -42,8 +42,8 @@ yarn start
 |:---|:---|
 |**Next Image**|$\rightarrow$|
 |**Previous Image**|$\leftarrow$|
-|**Speed Up**|$\uparrow$|
-|**Speed Down**|$\downarrow$|
+|**Speed Down**|$\uparrow$|
+|**Speed Up**|$\downarrow$|
 |**Play/Pause**|Space Key|
 |**Mouse Left Click(Image Left Half)**|Previous Image|
 |**Mouse Left Click(Image Right Half)**|Next Image|
