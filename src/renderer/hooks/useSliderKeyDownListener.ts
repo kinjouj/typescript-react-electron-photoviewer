@@ -1,20 +1,25 @@
-import { useCallback } from 'react';
-import { useKey } from 'react-use';
-import { KEY_SPACE } from '../constants';
-import { useSliderNavigationListener, useSliderSpeedChangeListener } from '.';
-import type Slider from 'react-slick';
-import type { OnTogglePlayingCallback } from './usePlayControlListener.types';
+import { useCallback, useState } from 'react';
+import {
+  useGlobalShortcutArrowDown,
+  useGlobalShortcutArrowLeft,
+  useGlobalShortcutArrowRight,
+  useGlobalShortcutArrowUp,
+  useGlobalShortcutSpace
+} from './events';
+import type { PlayControlResult, SliderRef } from '../types/app.types';
 
-type SliderRef = React.RefObject<Slider | null>;
-interface UseSliderKeyDownListenerResult {
-  speed: number
-}
+const SLIDER_DEFAULT_SPEED = 2000;
 
-export const useSliderKeyDownListener = (sliderRef: SliderRef, onTogglePlay: OnTogglePlayingCallback): UseSliderKeyDownListenerResult => {
-  const { speed } = useSliderSpeedChangeListener();
-  const playChangeHandler = useCallback(() => onTogglePlay(), [onTogglePlay]);
-  useKey(KEY_SPACE, playChangeHandler);
-  useSliderNavigationListener(sliderRef);
+export const useSliderKeyDownListener = (sliderRef: SliderRef): PlayControlResult => {
+  const [ isPlaying, setIsPlaying ] = useState(true);
+  const onTogglePlaying = useCallback(() => setIsPlaying((prevPlaying) => !prevPlaying), []);
+  const [ speed, setSpeed ] = useState(SLIDER_DEFAULT_SPEED);
 
-  return { speed };
+  useGlobalShortcutSpace(onTogglePlaying);
+  useGlobalShortcutArrowUp(setSpeed);
+  useGlobalShortcutArrowDown(setSpeed);
+  useGlobalShortcutArrowLeft(sliderRef);
+  useGlobalShortcutArrowRight(sliderRef);
+
+  return { isPlaying, onTogglePlaying, speed };
 };

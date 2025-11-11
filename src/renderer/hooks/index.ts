@@ -2,8 +2,5 @@ export * from './useClickableImageListener';
 export * from './useFetchFiles';
 export * from './usePlayControlListener';
 export * from './useSliderAfterChangeListener';
-export * from './useSliderArrows';
 export * from './useSliderKeyDownListener';
-export * from './useSliderNavigationListener';
 export * from './useSliderSettings';
-export * from './useSliderSpeedChangeListener';

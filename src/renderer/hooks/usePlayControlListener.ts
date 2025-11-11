@@ -1,24 +1,21 @@
-import { useCallback, useEffect, useState } from 'react';
-import type Slider from 'react-slick';
-import type { UsePlayControlListenerResult } from './usePlayControlListener.types';
+import { useEffect } from 'react';
+import { useSliderKeyDownListener } from '.';
+import type { PlayControlResult, SliderRef } from '../types/app.types';
 
-export const usePlayControlListener = (sliderRef: React.RefObject<Slider | null>): UsePlayControlListenerResult => {
-  const [ isPlaying, setIsPlaying ] = useState(true);
-  const onTogglePlaying = useCallback(() => setIsPlaying((prevPlaying) => !prevPlaying), []);
+export const usePlayControlListener = (sliderRef: SliderRef): PlayControlResult => {
+  const { isPlaying, onTogglePlaying, speed } = useSliderKeyDownListener(sliderRef);
 
   useEffect(() => {
     const slider = sliderRef.current;
 
-    if (slider === null) {
-      return;
-    }
-
-    if (isPlaying) {
-      slider.slickPlay();
-    } else {
-      slider.slickPause();
+    if (slider) {
+      if (isPlaying) {
+        slider.slickPlay();
+      } else {
+        slider.slickPause();
+      }
     }
   }, [ isPlaying, sliderRef ]);
 
-  return { isPlaying, onTogglePlaying };
+  return { isPlaying, onTogglePlaying, speed };
 };

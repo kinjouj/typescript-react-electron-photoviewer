@@ -18,9 +18,7 @@ const App = (): React.JSX.Element => {
     return (<div>Error</div>);
   }
 
-  return (
-    <PhotoViewSlider path={path} />
-  );
+  return (<PhotoViewSlider path={path} />);
 };
 
 export default App;

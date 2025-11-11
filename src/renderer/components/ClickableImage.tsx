@@ -1,5 +1,10 @@
 import { useClickableImageListener } from '../hooks';
-import type { ClickableImageProps } from './ClickableImage.types';
+import type { SliderRef } from '../types/app.types';
+
+interface ClickableImageProps {
+  src: string
+  sliderRef: SliderRef
+}
 
 const ClickableImage = ({ src, sliderRef }: ClickableImageProps): React.JSX.Element => {
   const { cursor, onClickImage, onMouseMove, onRightClickImageOpen } = useClickableImageListener(sliderRef);

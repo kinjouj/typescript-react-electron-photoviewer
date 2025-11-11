@@ -1,6 +1,8 @@
 interface ElectronAPI {
   requestFiles: (requestPath: string) => Promise<string[]>
-  updateTitle: (index: number, dataSize: number, path: string) => void
+  updateTitle: (title: string) => void
+  onGlobalShortcut: (channel: string, callback: () => void) => void
+  removeListener: (channel: string, callback: () => void) => void
 }
 
 declare global {

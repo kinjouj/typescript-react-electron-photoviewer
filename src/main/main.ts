@@ -1,9 +1,11 @@
 import * as path from 'node:path';
-import { app, dialog, BrowserWindow, ipcMain } from 'electron';
-import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants';
+import { app, dialog, BrowserWindow, ipcMain, globalShortcut, Notification } from 'electron';
+import { IPC_CHANNEL_ON_DOWN_PRESSED, IPC_CHANNEL_ON_LEFT_PRESSED, IPC_CHANNEL_ON_RIGHT_PRESSED, IPC_CHANNEL_ON_SPACE_PRESSED, IPC_CHANNEL_ON_UP_PRESSED, IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants';
 import Client from './api/client';
 
 app.disableHardwareAcceleration();
+
+let selectedPath: string | null = null;
 
 const setupIPCListener = (): void => {
   ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, async (event, requestPath: string): Promise<string[]> => {
@@ -13,16 +15,16 @@ const setupIPCListener = (): void => {
 
     return await Client.getFiles(requestPath);
   });
-  ipcMain.on(IPC_CHANNEL_UPDATE_TITLE, (event, index: number, dataSize: number, path: string): void => {
+  ipcMain.on(IPC_CHANNEL_UPDATE_TITLE, (event, title: string): void => {
     const window = BrowserWindow.fromWebContents(event.sender);
 
     if (window && !window.isDestroyed()) {
-      window.setTitle(`${path}:  (${index}/${dataSize})`);
+      window.setTitle(`${selectedPath}:  ${title}`);
     }
   });
 };
 
-const createWindow = async (selectedPath: string): Promise<void> => {
+const createWindow = async (): Promise<BrowserWindow> => {
   // const cursorPoint = screen.getCursorScreenPoint();
   // const currentDisplay = screen.getDisplayNearestPoint(cursorPoint);
 
@@ -40,11 +42,31 @@ const createWindow = async (selectedPath: string): Promise<void> => {
   await win.loadURL(`file://${htmlFile}#${selectedPath}`);
   /*
   win.once('ready-to-show', () => {
-    if (!win.isDestroyed()) {
-      win.webContents.openDevTools({ mode: 'detach' });
+    if (win.isDestroyed()) {
+      return;
     }
   });
   */
+
+  return win;
+};
+
+const registerShortcuts = (win: BrowserWindow): void => {
+  const registerShortcut = (key: string, callback: () => void): void => {
+    const isRegistered = globalShortcut.register(key, callback);
+
+    if (!isRegistered) {
+      const n = new Notification({ title: 'ERROR', body: `${key}: register failed` });
+      n.show();
+    }
+  };
+
+  registerShortcut('Up', () => win.webContents.send(IPC_CHANNEL_ON_UP_PRESSED));
+  registerShortcut('Space', () => win.webContents.send(IPC_CHANNEL_ON_SPACE_PRESSED));
+  registerShortcut('Down', () => win.webContents.send(IPC_CHANNEL_ON_DOWN_PRESSED));
+  registerShortcut('Left', () => win.webContents.send(IPC_CHANNEL_ON_LEFT_PRESSED));
+  registerShortcut('Right', () => win.webContents.send(IPC_CHANNEL_ON_RIGHT_PRESSED));
+  registerShortcut('Escape', () => app.quit());
 };
 
 app.whenReady().then(async () => {
@@ -56,9 +78,13 @@ app.whenReady().then(async () => {
   });
 
   if (!result.canceled && result.filePaths.length > 0) {
-    const selectedPath = result.filePaths[0];
-    createWindow(selectedPath).catch(() => app.quit());
+    selectedPath = result.filePaths[0];
+    createWindow().then((win) => registerShortcuts(win)).catch(() => app.quit());
   } else {
     app.quit();
   }
 }).catch(() => app.quit());
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+});

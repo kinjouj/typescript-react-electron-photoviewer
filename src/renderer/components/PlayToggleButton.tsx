@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
-import type { PlayingButtonProps } from './PlayingButton.types';
+import type { PlayControlResult } from '../types/app.types';
 
-const PlayingButton = ({ isPlaying, onTogglePlaying }: PlayingButtonProps): React.JSX.Element => {
+type PlayToggleButtonProps = Omit<PlayControlResult, 'speed'>;
+
+const PlayToggleButton = ({ isPlaying, onTogglePlaying }: PlayToggleButtonProps): React.JSX.Element => {
   const buttonCSSClass = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play';
   const onClickHandler = useCallback(() => onTogglePlaying(), [onTogglePlaying]);
 
@@ -12,4 +14,4 @@ const PlayingButton = ({ isPlaying, onTogglePlaying }: PlayingButtonProps): Reac
   );
 };
 
-export default PlayingButton;
+export default PlayToggleButton;

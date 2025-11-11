@@ -1,25 +1,26 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import RendererClient from '../api/rendererClient';
-import type { UseSliderAfterChangeListenerResult } from './useSliderAfterChangeListener.types';
+import type { AfterChangeCallback } from '../types/app.types';
 
-export const useSliderAfterChangeListener = (path: string, data: string[] | null): UseSliderAfterChangeListenerResult => {
-  const updateTitle = useCallback((page: number) => {
-    if (data === null) {
-      return;
-    }
+interface AfterChangeHandlerResult {
+  afterChangeHandler: AfterChangeCallback
+}
 
-    RendererClient.updateWindowTitle(page + 1, data.length, path);
-  }, [ path, data ]);
+export const useSliderAfterChangeListener = (data: string[], speed: number): AfterChangeHandlerResult => {
+  const speedRef = useRef(speed);
+  const currentPage = useRef(0);
 
-  const afterChangeHandler = useCallback((page: number) => updateTitle(page), [updateTitle]);
+  const afterChangeHandler = useCallback((page: number) => {
+    const speed = speedRef.current;
+    const title = `(${page + 1}/${data.length}):  speed(${speed})`;
+    RendererClient.updateWindowTitle(title);
+    currentPage.current = page;
+  }, [data]);
 
   useEffect(() => {
-    if (data === null) {
-      return;
-    }
-
-    updateTitle(0);
-  }, [ data, updateTitle ]);
+    speedRef.current = speed;
+    afterChangeHandler(currentPage.current);
+  }, [ speed, afterChangeHandler ]);
 
   return { afterChangeHandler };
 };

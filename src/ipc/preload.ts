@@ -21,7 +21,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
   requestFiles: (requestPath: string): Promise<string[]> => {
     return ipcRenderer.invoke(IPC_CHANNEL_REQUEST_FILES, requestPath);
   },
-  updateTitle: (index: number, dataSize: number, path: string): void => {
-    ipcRenderer.send(IPC_CHANNEL_UPDATE_TITLE, index, dataSize, path);
+  updateTitle: (title: string): void => {
+    ipcRenderer.send(IPC_CHANNEL_UPDATE_TITLE, title);
+  },
+  onGlobalShortcut: (channel: string, callback: () => void) => {
+    ipcRenderer.on(channel, callback);
+  },
+  removeListener: (channel: string, callback: () => void) => {
+    ipcRenderer.removeListener(channel, callback);
   },
 });

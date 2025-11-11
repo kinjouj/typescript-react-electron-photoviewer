@@ -3,7 +3,13 @@ export default class RendererClient {
     return await window.electronAPI.requestFiles(requestPath);
   }
 
-  public static updateWindowTitle(index: number, dataSize: number, path: string): void {
-    window.electronAPI.updateTitle(index, dataSize, path);
+  public static updateWindowTitle(title: string): void {
+    window.electronAPI.updateTitle(title);
+  }
+
+  public static removeListener(channel: string, callback: () => void): () => void {
+    return () => {
+      window.electronAPI.removeListener(channel, callback);
+    };
   }
 }
