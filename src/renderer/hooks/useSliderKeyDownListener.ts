@@ -12,8 +12,8 @@ const SLIDER_DEFAULT_SPEED = 2000;
 
 export const useSliderKeyDownListener = (sliderRef: SliderRef): PlayControlResult => {
   const [ isPlaying, setIsPlaying ] = useState(true);
-  const onTogglePlaying = useCallback(() => setIsPlaying((prevPlaying) => !prevPlaying), []);
   const [ speed, setSpeed ] = useState(SLIDER_DEFAULT_SPEED);
+  const onTogglePlaying = useCallback(() => setIsPlaying((prevPlaying) => !prevPlaying), []);
 
   useGlobalShortcutSpace(onTogglePlaying);
   useGlobalShortcutArrowUp(setSpeed);

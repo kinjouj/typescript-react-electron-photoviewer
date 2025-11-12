@@ -40,13 +40,8 @@ const createWindow = async (): Promise<BrowserWindow> => {
   });
   const htmlFile = path.resolve(__dirname, 'index.html');
   await win.loadURL(`file://${htmlFile}#${selectedPath}`);
-  /*
-  win.once('ready-to-show', () => {
-    if (win.isDestroyed()) {
-      return;
-    }
-  });
-  */
+
+  // win.once('ready-to-show', () => {});
 
   return win;
 };
@@ -75,11 +70,16 @@ app.whenReady().then(async () => {
   const result = await dialog.showOpenDialog({
     title: 'photoviewer',
     properties: ['openDirectory'],
+    defaultPath: app.getPath('desktop'),
   });
 
   if (!result.canceled && result.filePaths.length > 0) {
     selectedPath = result.filePaths[0];
-    createWindow().then((win) => registerShortcuts(win)).catch(() => app.quit());
+    createWindow().then((win) => {
+      win.on('focus', () => registerShortcuts(win));
+      win.on('blur', () => globalShortcut.unregisterAll());
+      registerShortcuts(win);
+    }).catch(() => app.quit());
   } else {
     app.quit();
   }
