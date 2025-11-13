@@ -6,26 +6,26 @@ import { FETCH_ACTION_ERROR, FETCH_ACTION_START, FETCH_ACTION_SUCCESS } from '..
 type FetchFilesResult = FetchState<string[]>;
 
 export const useFetchFiles = (path: string): FetchFilesResult => {
-  const [ state, dispatch ] = useReducer(fetchReducer<string[]>, { data: [], loading: true, isError: false });
+  const [ state, dispatch ] = useReducer(fetchReducer<string[]>, { files: [], loading: true, isError: false });
 
   useEffect(() => {
     let cancelled = false;
-
-    void (async (): Promise<void> => {
+    const fetchFiles = async (): Promise<void> => {
       dispatch({ type: FETCH_ACTION_START });
 
       try {
-        const files = await RendererClient.fetchFiles(path);
+        const result = await RendererClient.fetchFiles(path);
 
         if (!cancelled) {
-          dispatch({ type: FETCH_ACTION_SUCCESS, payload: files });
+          dispatch({ type: FETCH_ACTION_SUCCESS, payload: result });
         }
       } catch {
         if (!cancelled) {
           dispatch({ type: FETCH_ACTION_ERROR });
         }
       }
-    })();
+    };
+    void fetchFiles();
 
     return (): void => {
       cancelled = true;

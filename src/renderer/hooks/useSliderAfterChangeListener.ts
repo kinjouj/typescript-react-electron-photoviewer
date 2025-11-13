@@ -8,18 +8,18 @@ interface AfterChangeHandlerResult {
 
 export const useSliderAfterChangeListener = (data: string[], speed: number): AfterChangeHandlerResult => {
   const speedRef = useRef(speed);
-  const currentPage = useRef(0);
+  const currentPageRef = useRef(0);
 
   const afterChangeHandler = useCallback((page: number) => {
     const speed = speedRef.current;
     const title = `(${page + 1}/${data.length}):  speed(${speed})`;
     RendererClient.updateWindowTitle(title);
-    currentPage.current = page;
+    currentPageRef.current = page;
   }, [data]);
 
   useEffect(() => {
     speedRef.current = speed;
-    afterChangeHandler(currentPage.current);
+    afterChangeHandler(currentPageRef.current);
   }, [ speed, afterChangeHandler ]);
 
   return { afterChangeHandler };

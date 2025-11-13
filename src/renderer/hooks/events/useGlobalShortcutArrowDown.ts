@@ -1,7 +1,6 @@
 import { useCallback, type Dispatch, type SetStateAction } from 'react';
-import { IPC_CHANNEL_ON_DOWN_PRESSED } from '../../../constants';
-import { SLIDER_SPEED_STEP } from '../../constants';
-import { useGlobalShortcut } from './useGlobalShortcut';
+import { IPC_CHANNEL_ON_DOWN_PRESSED, SLIDER_SPEED_STEP } from '../../constants';
+import { useGlobalShortcut } from './';
 
 const SLIDER_MAX_SPEED = 5000;
 

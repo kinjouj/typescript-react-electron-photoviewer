@@ -1,4 +1,5 @@
 interface ElectronAPI {
+  getPath: () => Promise<string>
   requestFiles: (requestPath: string) => Promise<string[]>
   updateTitle: (title: string) => void
   onGlobalShortcut: (channel: string, callback: () => void) => void

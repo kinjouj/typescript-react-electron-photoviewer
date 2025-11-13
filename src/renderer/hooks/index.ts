@@ -1,5 +1,6 @@
 export * from './useClickableImageListener';
 export * from './useFetchFiles';
+export * from './useFetchPath';
 export * from './usePlayControlListener';
 export * from './useSliderAfterChangeListener';
 export * from './useSliderKeyDownListener';

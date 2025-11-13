@@ -1,24 +1,27 @@
-import { ClipLoader } from 'react-spinners';
-import { useFetchFiles } from '../hooks';
-import { SliderContent } from '.';
+import { useMemo } from 'react';
+import Slider, { type Settings } from 'react-slick';
+import ClickableImage from './ClickableImage';
+import type { SliderRef } from '../types/app.types';
 
-const PhotoViewSlider = ({ path }: { path: string }): React.JSX.Element => {
-  const { data, loading, isError } = useFetchFiles(path);
+interface PhotoViewSliderProps {
+  sliderRef: SliderRef
+  settings: Settings
+  files: string[]
+}
 
-  if (loading) {
-    return (<ClipLoader loading={loading} className="clip-loader" />);
-  }
-
-  if (isError) {
-    return (<div>Error</div>);
-  }
-
-  if (data.length === 0) {
-    return (<div>File is Missing</div>);
-  }
+const PhotoViewSlider = ({ sliderRef, settings, files }: PhotoViewSliderProps): React.JSX.Element => {
+  const slideImages = useMemo(() => {
+    return files.map((file) => (
+      <div key={file} className="slick-image-block">
+        <ClickableImage src={file} sliderRef={sliderRef} />
+      </div>
+    ));
+  }, [ files, sliderRef ]);
 
   return (
-    <SliderContent data={data} />
+    <Slider {...settings} ref={sliderRef}>
+      {slideImages}
+    </Slider>
   );
 };
 

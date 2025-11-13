@@ -11,8 +11,8 @@ import type { PlayControlResult, SliderRef } from '../types/app.types';
 const SLIDER_DEFAULT_SPEED = 2000;
 
 export const useSliderKeyDownListener = (sliderRef: SliderRef): PlayControlResult => {
-  const [ isPlaying, setIsPlaying ] = useState(true);
   const [ speed, setSpeed ] = useState(SLIDER_DEFAULT_SPEED);
+  const [ isPlaying, setIsPlaying ] = useState(true);
   const onTogglePlaying = useCallback(() => setIsPlaying((prevPlaying) => !prevPlaying), []);
 
   useGlobalShortcutSpace(onTogglePlaying);

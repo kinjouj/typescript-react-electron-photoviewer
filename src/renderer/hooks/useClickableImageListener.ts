@@ -12,11 +12,11 @@ const isMouseOverLeftZone = (event: React.MouseEvent<HTMLImageElement>): boolean
   return event.nativeEvent.offsetX < event.currentTarget.width / 2;
 };
 
-export const useClickableImageListener = (slideRef: SliderRef): ClickableImageResult => {
+export const useClickableImageListener = (sliderRef: SliderRef): ClickableImageResult => {
   const [ cursor, setCursor ] = useState<React.CSSProperties['cursor']>('default');
 
   const onClickImage = useCallback((event: React.MouseEvent<HTMLImageElement>) => {
-    const slider = slideRef.current;
+    const slider = sliderRef.current;
 
     if (slider === null || event.button !== 0) {
       return;
@@ -27,7 +27,7 @@ export const useClickableImageListener = (slideRef: SliderRef): ClickableImageRe
     } else {
       slider.slickNext();
     }
-  }, [slideRef]);
+  }, [sliderRef]);
 
   const onMouseMove = useCallback((event: React.MouseEvent<HTMLImageElement>) => {
     const newCursor = isMouseOverLeftZone(event) ? 'w-resize' : 'e-resize';

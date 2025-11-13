@@ -1,4 +1,8 @@
 export default class RendererClient {
+  public static async getPath(): Promise<string> {
+    return await window.electronAPI.getPath();
+  }
+
   public static async fetchFiles(requestPath: string): Promise<string[]> {
     return await window.electronAPI.requestFiles(requestPath);
   }

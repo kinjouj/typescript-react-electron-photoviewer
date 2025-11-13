@@ -1,13 +1,25 @@
 import * as path from 'node:path';
 import { app, dialog, BrowserWindow, ipcMain, globalShortcut, Notification } from 'electron';
-import { IPC_CHANNEL_ON_DOWN_PRESSED, IPC_CHANNEL_ON_LEFT_PRESSED, IPC_CHANNEL_ON_RIGHT_PRESSED, IPC_CHANNEL_ON_SPACE_PRESSED, IPC_CHANNEL_ON_UP_PRESSED, IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants';
+import {
+  IPC_CHANNEL_GET_PATH,
+  IPC_CHANNEL_ON_DOWN_PRESSED,
+  IPC_CHANNEL_ON_LEFT_PRESSED,
+  IPC_CHANNEL_ON_RIGHT_PRESSED,
+  IPC_CHANNEL_ON_SPACE_PRESSED,
+  IPC_CHANNEL_ON_UP_PRESSED,
+  IPC_CHANNEL_REQUEST_FILES,
+  IPC_CHANNEL_UPDATE_TITLE
+} from '../constants';
 import Client from './api/client';
 
+let selectedPath: string | null = null;
 app.disableHardwareAcceleration();
 
-let selectedPath: string | null = null;
-
 const setupIPCListener = (): void => {
+  ipcMain.handle(IPC_CHANNEL_GET_PATH, (): Promise<string | null> => {
+    return Promise.resolve(selectedPath);
+  });
+
   ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, async (event, requestPath: string): Promise<string[]> => {
     if (!requestPath) {
       return [];
@@ -38,9 +50,7 @@ const createWindow = async (): Promise<BrowserWindow> => {
       webSecurity: true,
     },
   });
-  const htmlFile = path.resolve(__dirname, 'index.html');
-  await win.loadURL(`file://${htmlFile}#${selectedPath}`);
-
+  await win.loadFile(path.resolve(__dirname, 'index.html'));
   // win.once('ready-to-show', () => {});
 
   return win;

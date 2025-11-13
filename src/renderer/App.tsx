@@ -1,24 +1,18 @@
-import { PhotoViewSlider } from './components';
-
-const useLocationHash = (): string | null => {
-  try {
-    const hash = location.hash.substring(1);
-
-    return decodeURIComponent(hash);
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
+import { NowLoading, PhotoView } from './components';
+import { useFetchPath } from './hooks';
 
 const App = (): React.JSX.Element => {
-  const path = useLocationHash();
+  const { path, loading } = useFetchPath();
+
+  if (loading) {
+    return (<NowLoading loading={loading} />);
+  }
 
   if (path === null) {
     return (<div>Error</div>);
   }
 
-  return (<PhotoViewSlider path={path} />);
+  return (<PhotoView path={path} />);
 };
 
 export default App;
