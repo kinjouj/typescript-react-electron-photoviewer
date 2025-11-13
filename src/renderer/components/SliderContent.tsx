@@ -3,7 +3,7 @@ import { usePlayControlListener, useSliderSettings } from '../hooks';
 import { NextArrow, PhotoViewSlider, PlayToggleButton, PrevArrow } from '.';
 import type { NullableSlider } from '../types/app.types';
 
-const SliderContent = ({ files }: { files: string[] }): React.JSX.Element => {
+const SliderContent = ({ files }: { files: readonly string[] }): React.JSX.Element => {
   const sliderRef = useRef<NullableSlider>(null);
   const prevArrow = useMemo(() => <PrevArrow />, []);
   const nextArrow = useMemo(() => <NextArrow />, []);

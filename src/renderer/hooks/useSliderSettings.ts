@@ -3,7 +3,13 @@ import { SLIDER_BASE_SETTINGS } from '../constants';
 import { useSliderAfterChangeListener } from './useSliderAfterChangeListener';
 import type { Settings } from 'react-slick';
 
-export const useSliderSettings = (files: string[], speed: number, isPlaying: boolean, prevArrow: React.JSX.Element, nextArrow: React.JSX.Element): Settings => {
+export const useSliderSettings = (
+  files: readonly string[],
+  speed: number,
+  isPlaying: boolean,
+  prevArrow: React.JSX.Element,
+  nextArrow: React.JSX.Element
+): Settings => {
   const { afterChangeHandler } = useSliderAfterChangeListener(files, speed);
   const settings = useMemo(() => ({
     ...SLIDER_BASE_SETTINGS,

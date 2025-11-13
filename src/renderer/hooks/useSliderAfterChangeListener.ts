@@ -6,16 +6,17 @@ interface AfterChangeHandlerResult {
   afterChangeHandler: AfterChangeCallback
 }
 
-export const useSliderAfterChangeListener = (data: string[], speed: number): AfterChangeHandlerResult => {
+export const useSliderAfterChangeListener = (files: readonly string[], speed: number): AfterChangeHandlerResult => {
   const speedRef = useRef(speed);
   const currentPageRef = useRef(0);
 
   const afterChangeHandler = useCallback((page: number) => {
+    console.log(`page: ${page}`);
     const speed = speedRef.current;
-    const title = `(${page + 1}/${data.length}):  speed(${speed})`;
+    const title = `(${page + 1}/${files.length}):  speed(${speed})`;
     RendererClient.updateWindowTitle(title);
     currentPageRef.current = page;
-  }, [data]);
+  }, [files]);
 
   useEffect(() => {
     speedRef.current = speed;

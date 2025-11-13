@@ -1,7 +1,6 @@
 import * as path from 'node:path';
 import { app, dialog, BrowserWindow, ipcMain, globalShortcut, Notification } from 'electron';
 import {
-  IPC_CHANNEL_GET_PATH,
   IPC_CHANNEL_ON_DOWN_PRESSED,
   IPC_CHANNEL_ON_LEFT_PRESSED,
   IPC_CHANNEL_ON_RIGHT_PRESSED,
@@ -16,16 +15,12 @@ let selectedPath: string | null = null;
 app.disableHardwareAcceleration();
 
 const setupIPCListener = (): void => {
-  ipcMain.handle(IPC_CHANNEL_GET_PATH, (): Promise<string | null> => {
-    return Promise.resolve(selectedPath);
-  });
-
-  ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, async (event, requestPath: string): Promise<string[]> => {
-    if (!requestPath) {
+  ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, async (): Promise<string[]> => {
+    if (!selectedPath) {
       return [];
     }
 
-    return await Client.getFiles(requestPath);
+    return await Client.getFiles(selectedPath);
   });
   ipcMain.on(IPC_CHANNEL_UPDATE_TITLE, (event, title: string): void => {
     const window = BrowserWindow.fromWebContents(event.sender);

@@ -3,9 +3,7 @@ import RendererClient from '../api/rendererClient';
 import { fetchReducer, type FetchState } from '../reducers/fetchReducer';
 import { FETCH_ACTION_ERROR, FETCH_ACTION_START, FETCH_ACTION_SUCCESS } from '../constants';
 
-type FetchFilesResult = FetchState<string[]>;
-
-export const useFetchFiles = (path: string): FetchFilesResult => {
+export const useFetchFiles = (): FetchState<readonly string[]> => {
   const [ state, dispatch ] = useReducer(fetchReducer<string[]>, { files: [], loading: true, isError: false });
 
   useEffect(() => {
@@ -14,7 +12,7 @@ export const useFetchFiles = (path: string): FetchFilesResult => {
       dispatch({ type: FETCH_ACTION_START });
 
       try {
-        const result = await RendererClient.fetchFiles(path);
+        const result = await RendererClient.fetchFiles();
 
         if (!cancelled) {
           dispatch({ type: FETCH_ACTION_SUCCESS, payload: result });
@@ -30,7 +28,7 @@ export const useFetchFiles = (path: string): FetchFilesResult => {
     return (): void => {
       cancelled = true;
     };
-  }, [path]);
+  }, []);
 
   return state;
 };

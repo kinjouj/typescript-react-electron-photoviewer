@@ -6,7 +6,7 @@ import type { SliderRef } from '../types/app.types';
 interface PhotoViewSliderProps {
   sliderRef: SliderRef
   settings: Settings
-  files: string[]
+  files: readonly string[]
 }
 
 const PhotoViewSlider = ({ sliderRef, settings, files }: PhotoViewSliderProps): React.JSX.Element => {

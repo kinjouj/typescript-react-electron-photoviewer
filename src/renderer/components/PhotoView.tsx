@@ -1,8 +1,8 @@
 import { useFetchFiles } from '../hooks';
 import { NowLoading, SliderContent } from '.';
 
-const PhotoView = ({ path }: { path: string }): React.JSX.Element => {
-  const { files, loading, isError } = useFetchFiles(path);
+const PhotoView = (): React.JSX.Element => {
+  const { files, loading, isError } = useFetchFiles();
 
   if (loading) {
     return (<NowLoading loading={loading} />);

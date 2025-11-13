@@ -123,11 +123,7 @@ export default defineConfig(
           "groups": [
             "builtin",
             "external",
-            [
-              "internal",
-              "parent",
-              "sibling",
-            ],
+            [ "internal", "parent", "sibling" ],
             "index",
             "type",
           ],

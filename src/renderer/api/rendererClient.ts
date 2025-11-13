@@ -1,10 +1,6 @@
 export default class RendererClient {
-  public static async getPath(): Promise<string> {
-    return await window.electronAPI.getPath();
-  }
-
-  public static async fetchFiles(requestPath: string): Promise<string[]> {
-    return await window.electronAPI.requestFiles(requestPath);
+  public static async fetchFiles(): Promise<string[]> {
+    return await window.electronAPI.requestFiles();
   }
 
   public static updateWindowTitle(title: string): void {
@@ -12,8 +8,6 @@ export default class RendererClient {
   }
 
   public static removeListener(channel: string, callback: () => void): () => void {
-    return () => {
-      window.electronAPI.removeListener(channel, callback);
-    };
+    return () => window.electronAPI.removeListener(channel, callback);
   }
 }
