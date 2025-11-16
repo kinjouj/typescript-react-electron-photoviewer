@@ -1,21 +1,32 @@
 import { useEffect } from 'react';
-import { useSliderKeyDownListener } from '.';
-import type { PlayControlResult, SliderRef } from '../types/app.types';
+import { useSwiper } from 'swiper/react';
+import {
+  useGlobalShortcutArrowDown,
+  useGlobalShortcutArrowLeft,
+  useGlobalShortcutArrowRight,
+  useGlobalShortcutArrowUp,
+  useGlobalShortcutSpace
+} from './events';
+import type { DelayChangeHandler, PlayingChangeHandler } from '../types/app.types';
 
-export const usePlayControlListener = (sliderRef: SliderRef): PlayControlResult => {
-  const { isPlaying, onTogglePlaying, speed } = useSliderKeyDownListener(sliderRef);
+export const usePlayControlListener = (
+  isPlaying: boolean,
+  handleChangePlaying: PlayingChangeHandler,
+  handleChangeDelay: DelayChangeHandler
+): void => {
+  const swiper = useSwiper();
 
   useEffect(() => {
-    const slider = sliderRef.current;
-
-    if (slider) {
-      if (isPlaying) {
-        slider.slickPlay();
-      } else {
-        slider.slickPause();
-      }
+    if (isPlaying) {
+      swiper.autoplay.start();
+    } else {
+      swiper.autoplay.stop();
     }
-  }, [ isPlaying, sliderRef ]);
+  }, [ isPlaying, swiper ]);
 
-  return { isPlaying, onTogglePlaying, speed };
+  useGlobalShortcutSpace(handleChangePlaying);
+  useGlobalShortcutArrowUp(handleChangeDelay);
+  useGlobalShortcutArrowDown(handleChangeDelay);
+  useGlobalShortcutArrowLeft();
+  useGlobalShortcutArrowRight();
 };

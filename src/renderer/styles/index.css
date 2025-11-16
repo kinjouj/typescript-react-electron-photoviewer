@@ -1,6 +1,3 @@
-@import 'slick-carousel/slick/slick.css';
-@import 'slick-carousel/slick/slick-theme.css';
-
 html, body, #root {
   width: 100%;
   height: 100%;
@@ -15,45 +12,37 @@ html, body, #root {
   transform: translate(-50%, -50%);
 }
 
-
-.slick-slider,
-.slick-list,
-.slick-list .slick-track,
-.slick-list .slick-track .slick-slide > div {
+.swiper {
   height: 100%;
 }
 
-.slick-arrow {
-  padding: 5px;
-  position: absolute;
-  top: 15px;
-  z-index: 10;
-}
-
-.slick-image-block {
+.swiper-image-block {
   height: 100%;
 }
 
-.slick-image {
+.swiper-image {
   width: 100% !important;
   height: 100% !important;
   object-fit: fill;
 }
 
-.slick-footer {
+.swiper-footer {
+  width: 100%;
+  height: 100%;
   font-size: 1.23em;
   font-weight: bold;
   color: midnightblue;
 }
 
-.slick-footer-left-pane {
+.swiper-footer-left-pane {
   position: absolute;
   bottom: 10px;
   left: 15px;
 }
 
-.slick-footer-right-pane {
+.swiper-footer-right-pane {
   position: absolute;
   bottom: 10px;
   right: 15px;
+  z-index: 100;
 }

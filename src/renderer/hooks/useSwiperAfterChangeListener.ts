@@ -6,22 +6,18 @@ interface AfterChangeHandlerResult {
   afterChangeHandler: AfterChangeCallback
 }
 
-export const useSliderAfterChangeListener = (files: readonly string[], speed: number): AfterChangeHandlerResult => {
-  const speedRef = useRef(speed);
+export const useSwiperAfterChangeListener = (files: readonly string[], delay: number): AfterChangeHandlerResult => {
   const currentPageRef = useRef(0);
 
   const afterChangeHandler = useCallback((page: number) => {
-    console.log(`page: ${page}`);
-    const speed = speedRef.current;
-    const title = `(${page + 1}/${files.length}):  speed(${speed})`;
+    const title = `(${page + 1}/${files.length})  speed[${delay}]`;
     RendererClient.updateWindowTitle(title);
     currentPageRef.current = page;
-  }, [files]);
+  }, [ delay, files ]);
 
   useEffect(() => {
-    speedRef.current = speed;
     afterChangeHandler(currentPageRef.current);
-  }, [ speed, afterChangeHandler ]);
+  }, [afterChangeHandler]);
 
   return { afterChangeHandler };
 };

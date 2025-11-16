@@ -1,15 +1,14 @@
 import { useCallback } from 'react';
+import { useSwiper } from 'swiper/react';
 import { IPC_CHANNEL_ON_RIGHT_PRESSED } from '../../../constants';
 import { useGlobalShortcut } from '.';
-import type { SliderRef } from '../../types/app.types';
 
-export const useGlobalShortcutArrowRight = (sliderRef: SliderRef): void => {
+export const useGlobalShortcutArrowRight = (): void => {
+  const swiper = useSwiper();
+
   const handleRightPressed = useCallback(() => {
-    const slider = sliderRef.current;
+    swiper.slideNext();
+  }, [swiper]);
 
-    if (slider) {
-      slider.slickNext();
-    }
-  }, [sliderRef]);
   useGlobalShortcut(IPC_CHANNEL_ON_RIGHT_PRESSED, handleRightPressed);
 };

@@ -1,11 +1,12 @@
+import { ClipLoader } from 'react-spinners';
 import { useFetchFiles } from './hooks';
-import { NowLoading, SliderContent } from './components';
+import { PhotoViewSwiper } from './components';
 
 const App = (): React.JSX.Element => {
   const { files, loading, isError } = useFetchFiles();
 
   if (loading) {
-    return (<NowLoading loading={loading} />);
+    return (<ClipLoader loading={loading} className="clip-loader" />);
   }
 
   if (isError) {
@@ -17,7 +18,7 @@ const App = (): React.JSX.Element => {
   }
 
   return (
-    <SliderContent files={files} />
+    <PhotoViewSwiper files={files} />
   );
 };
 

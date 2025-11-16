@@ -46,7 +46,9 @@ const createWindow = async (): Promise<BrowserWindow> => {
     },
   });
   await win.loadFile(path.resolve(__dirname, 'index.html'));
-  // win.once('ready-to-show', () => {});
+  win.once('ready-to-show', () => {
+    // win.webContents.openDevTools({ mode: 'detach' });
+  });
 
   return win;
 };

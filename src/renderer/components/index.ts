@@ -1,7 +1,4 @@
 export { default as ClickableImage } from './ClickableImage';
-export { default as NextArrow } from './NextArrow';
-export { default as PrevArrow } from './PrevArrow';
-export { default as NowLoading } from './NowLoading';
-export { default as SliderContent } from './SliderContent';
-export { default as PhotoViewSlider } from './PhotoViewSlider';
+export { default as PhotoViewControl } from './PhotoViewControl';
+export { default as PhotoViewSwiper } from './PhotoViewSwiper';
 export { default as PlayToggleButton } from './PlayToggleButton';

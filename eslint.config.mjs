@@ -10,7 +10,7 @@ import checkFile from "eslint-plugin-check-file";
 import importPlugin from "eslint-plugin-import";
 
 export default defineConfig(
-  { ignores: ["**/*.js", "**/*.mjs"] },
+  { ignores: ["**/*.js", "**/*.mjs", "node_modules/**"] },
   eslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   tseslint.configs.stylisticTypeChecked,

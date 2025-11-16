@@ -1,3 +1,3 @@
 export * from './reducer';
-export * from './slider';
+export * from './swiper';
 export * from '../../constants';

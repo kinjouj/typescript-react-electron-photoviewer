@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import type { SliderRef } from '../types/app.types';
+import { useSwiper } from 'swiper/react';
 
 interface ClickableImageResult {
   cursor: React.CSSProperties['cursor']
@@ -12,22 +12,21 @@ const isMouseOverLeftZone = (event: React.MouseEvent<HTMLImageElement>): boolean
   return event.nativeEvent.offsetX < event.currentTarget.width / 2;
 };
 
-export const useClickableImageListener = (sliderRef: SliderRef): ClickableImageResult => {
+export const useClickableImageListener = (): ClickableImageResult => {
+  const swiper = useSwiper();
   const [ cursor, setCursor ] = useState<React.CSSProperties['cursor']>('default');
 
   const onClickImage = useCallback((event: React.MouseEvent<HTMLImageElement>) => {
-    const slider = sliderRef.current;
-
-    if (slider === null || event.button !== 0) {
+    if (event.button !== 0) {
       return;
     }
 
     if (isMouseOverLeftZone(event)) {
-      slider.slickPrev();
+      swiper.slidePrev();
     } else {
-      slider.slickNext();
+      swiper.slideNext();
     }
-  }, [sliderRef]);
+  }, [swiper]);
 
   const onMouseMove = useCallback((event: React.MouseEvent<HTMLImageElement>) => {
     const newCursor = isMouseOverLeftZone(event) ? 'w-resize' : 'e-resize';

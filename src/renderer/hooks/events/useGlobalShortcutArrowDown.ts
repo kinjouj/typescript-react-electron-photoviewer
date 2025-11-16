@@ -1,12 +1,14 @@
-import { useCallback, type Dispatch, type SetStateAction } from 'react';
-import { IPC_CHANNEL_ON_DOWN_PRESSED, SLIDER_SPEED_STEP } from '../../constants';
+import { useCallback } from 'react';
+import { IPC_CHANNEL_ON_DOWN_PRESSED, SWIPER_DELAY_STEP } from '../../constants';
 import { useGlobalShortcut } from './';
+import type { DelayChangeHandler } from '../../types/app.types';
 
-const SLIDER_MAX_SPEED = 5000;
+const SWIPER_MAX_DELAY = 5000;
 
-export const useGlobalShortcutArrowDown = (setSpeed: Dispatch<SetStateAction<number>>): void => {
-  const speedDownHandler = useCallback(() => {
-    setSpeed((currentSpeed) => Math.min(SLIDER_MAX_SPEED, currentSpeed + SLIDER_SPEED_STEP));
-  }, [setSpeed]);
-  useGlobalShortcut(IPC_CHANNEL_ON_DOWN_PRESSED, speedDownHandler);
+export const useGlobalShortcutArrowDown = (handleChangeDelay: DelayChangeHandler): void => {
+  const increaseDelayHandler = useCallback(() => {
+    handleChangeDelay((currentDelay) => Math.min(SWIPER_MAX_DELAY, currentDelay + SWIPER_DELAY_STEP));
+  }, [handleChangeDelay]);
+
+  useGlobalShortcut(IPC_CHANNEL_ON_DOWN_PRESSED, increaseDelayHandler);
 };
