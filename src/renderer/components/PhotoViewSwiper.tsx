@@ -1,10 +1,14 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useSwiperSettings } from '../hooks';
-import { ClickableImage, PhotoViewControl } from '.';
+import { ClickableImage, PhotoViewControl, ThumbSwiper } from '.';
+import type { SwiperType } from '../types/app.types';
 import 'swiper/css';
+import 'swiper/css/thumbs';
+import 'swiper/css/virtual';
 
 const PhotoViewSwiper = ({ files }: { files: readonly string[] }): React.JSX.Element => {
+  const [ thumbSwiper, setThumbSwiper ] = useState<SwiperType | null>(null);
   const [ delay, setDelay ] = useState(2000);
   const [ isPlaying, setPlaying ] = useState(true);
   const settings = useSwiperSettings(files, delay);
@@ -27,14 +31,11 @@ const PhotoViewSwiper = ({ files }: { files: readonly string[] }): React.JSX.Ele
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <Swiper {...settings}>
+      <Swiper thumbs={{ swiper: thumbSwiper, autoScrollOffset: 1 }} {...settings}>
         {slideImages}
-        <PhotoViewControl
-          isPlaying={isPlaying}
-          handleChangeDelay={handleChangeDelay}
-          handleChangePlaying={handleChangePlaying}
-        />
+        <PhotoViewControl isPlaying={isPlaying} handleChangeDelay={handleChangeDelay} handleChangePlaying={handleChangePlaying} />
       </Swiper>
+      <ThumbSwiper files={files} onSwiper={setThumbSwiper} />
     </div>
   );
 };

@@ -27,6 +27,6 @@ export const usePlayControlListener = (
   useGlobalShortcutSpace(handleChangePlaying);
   useGlobalShortcutArrowUp(handleChangeDelay);
   useGlobalShortcutArrowDown(handleChangeDelay);
-  useGlobalShortcutArrowLeft();
-  useGlobalShortcutArrowRight();
+  useGlobalShortcutArrowLeft(swiper);
+  useGlobalShortcutArrowRight(swiper);
 };

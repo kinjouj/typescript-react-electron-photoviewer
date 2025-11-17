@@ -1,5 +1,4 @@
 import { usePlayControlListener } from '../hooks';
-import PlayToggleButton from './PlayToggleButton';
 import type { DelayChangeHandler, PlayingChangeHandler } from '../types/app.types';
 
 interface PhotoViewControlProps {
@@ -12,9 +11,11 @@ const PhotoViewControl = ({ isPlaying, handleChangePlaying, handleChangeDelay }:
   usePlayControlListener(isPlaying, handleChangePlaying, handleChangeDelay);
 
   return (
-    <div className="swiper-footer">
-      <div className="swiper-footer-right-pane">
-        <PlayToggleButton isPlaying={isPlaying} handleChangePlaying={handleChangePlaying} />
+    <div className="swiper-header">
+      <div className="swiper-header-right-pane">
+        <button type="button" onClick={handleChangePlaying}>
+          <i className={isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'} style={{ fontSize: '1.58em' }}></i>
+        </button>
       </div>
     </div>
   );

@@ -14,5 +14,6 @@
     "isolatedModules": true,
     "types": ["node", "electron"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["./node_modules", "./dist", "./package"]
 }

@@ -36,6 +36,8 @@ const createWindow = async (): Promise<BrowserWindow> => {
   // const currentDisplay = screen.getDisplayNearestPoint(cursorPoint);
 
   const win = new BrowserWindow({
+    width: 800,
+    height: 700,
     autoHideMenuBar: true,
     center: true,
     webPreferences: {
