@@ -1,4 +1,12 @@
-import { usePlayControlListener } from '../hooks';
+import { useSwiper } from 'swiper/react';
+import { useEffect } from 'react';
+import {
+  useGlobalShortcutArrowDown,
+  useGlobalShortcutArrowLeft,
+  useGlobalShortcutArrowRight,
+  useGlobalShortcutArrowUp,
+  useGlobalShortcutSpace
+} from '../hooks/events';
 import type { DelayChangeHandler, PlayingChangeHandler } from '../types/app.types';
 
 interface PhotoViewControlProps {
@@ -8,7 +16,21 @@ interface PhotoViewControlProps {
 }
 
 const PhotoViewControl = ({ isPlaying, handleChangePlaying, handleChangeDelay }: PhotoViewControlProps): React.JSX.Element => {
-  usePlayControlListener(isPlaying, handleChangePlaying, handleChangeDelay);
+  const swiper = useSwiper();
+
+  useEffect(() => {
+    if (isPlaying) {
+      swiper.autoplay.start();
+    } else {
+      swiper.autoplay.stop();
+    }
+  }, [ isPlaying, swiper ]);
+
+  useGlobalShortcutSpace(handleChangePlaying);
+  useGlobalShortcutArrowUp(handleChangeDelay);
+  useGlobalShortcutArrowDown(handleChangeDelay);
+  useGlobalShortcutArrowLeft(swiper);
+  useGlobalShortcutArrowRight(swiper);
 
   return (
     <div className="swiper-header">

@@ -10,7 +10,8 @@ export const useSwiperAfterChangeListener = (files: readonly string[], delay: nu
   const currentPageRef = useRef(0);
 
   const afterChangeHandler = useCallback((page: number) => {
-    const title = `(${page + 1}/${files.length})  speed[${delay}]`;
+    const file = files[page];
+    const title = `${file} (${page + 1}/${files.length}) [delay:${delay}]`;
     RendererClient.updateWindowTitle(title);
     currentPageRef.current = page;
   }, [ delay, files ]);

@@ -26,7 +26,7 @@ const setupIPCListener = (): void => {
     const window = BrowserWindow.fromWebContents(event.sender);
 
     if (window && !window.isDestroyed()) {
-      window.setTitle(`${selectedPath}:  ${title}`);
+      window.setTitle(title);
     }
   });
 };
@@ -37,7 +37,7 @@ const createWindow = async (): Promise<BrowserWindow> => {
 
   const win = new BrowserWindow({
     width: 800,
-    height: 700,
+    height: 650,
     autoHideMenuBar: true,
     center: true,
     webPreferences: {

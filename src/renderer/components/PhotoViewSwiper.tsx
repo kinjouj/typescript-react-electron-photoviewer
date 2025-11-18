@@ -31,9 +31,12 @@ const PhotoViewSwiper = ({ files }: { files: readonly string[] }): React.JSX.Ele
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <Swiper thumbs={{ swiper: thumbSwiper, autoScrollOffset: 1 }} {...settings}>
+      <Swiper key="photoview-swiper" thumbs={{ swiper: thumbSwiper, autoScrollOffset: 1 }} {...settings}>
         {slideImages}
-        <PhotoViewControl isPlaying={isPlaying} handleChangeDelay={handleChangeDelay} handleChangePlaying={handleChangePlaying} />
+        <PhotoViewControl
+          isPlaying={isPlaying}
+          handleChangeDelay={handleChangeDelay}
+          handleChangePlaying={handleChangePlaying} />
       </Swiper>
       <ThumbSwiper files={files} onSwiper={setThumbSwiper} />
     </div>
