@@ -57,6 +57,15 @@ export default defineConfig(
       ],
       "@stylistic/jsx-closing-bracket-location": "off",
       "@stylistic/jsx-quotes": ["error", "prefer-double"],
+      "@stylistic/jsx-sort-props": [
+        "error",
+        {
+          "callbacksLast": true,
+          "reservedFirst": ["key", "ref", "id", "type", "className"],
+          "shorthandLast": true,
+          "noSortAlphabetically": true,
+        },
+      ],
       "@stylistic/max-statements-per-line": ["error", { max: 2 }],
       "@stylistic/semi": ["error", "always"],
       "@stylistic/spaced-comment": "off",

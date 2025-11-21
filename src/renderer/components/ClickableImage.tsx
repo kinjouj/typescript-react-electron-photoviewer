@@ -1,16 +1,52 @@
-import { useClickableImageListener } from '../hooks';
+import { useCallback, useEffect, useRef } from 'react';
+import { useSwiper } from 'swiper/react';
+
+const isMouseOverLeftZone = (event: React.MouseEvent<HTMLImageElement>): boolean => {
+  return event.nativeEvent.offsetX < event.currentTarget.width / 2;
+};
 
 const ClickableImage = ({ src }: { src: string }): React.JSX.Element => {
-  const { cursor, onClickImage, onMouseMove, onRightClickImageOpen } = useClickableImageListener();
+  const swiper = useSwiper();
+  const isClickActive = useRef(true);
+
+  useEffect(() => {
+    const lock = (): void => { isClickActive.current = false; };
+    const unlock = (): void => { isClickActive.current = true; };
+
+    swiper.on('transitionStart', lock);
+    swiper.on('transitionEnd', unlock);
+
+    isClickActive.current = true;
+
+    return (): void => {
+      swiper.off('transitionStart', lock);
+      swiper.off('transitionEnd', unlock);
+    };
+  }, [swiper]);
+
+  const onClickImage = useCallback((e: React.MouseEvent<HTMLImageElement>): void => {
+    if (!isClickActive.current) {
+      return;
+    }
+
+    if (isMouseOverLeftZone(e)) {
+      swiper.slidePrev();
+    } else {
+      swiper.slideNext();
+    }
+  }, [swiper]);
+
+  const onRightClickImageOpen = useCallback((event: React.MouseEvent<HTMLImageElement>) => {
+    window.open(event.currentTarget.src, '_blank', 'width=500,height=500');
+  }, []);
 
   return (
     <img
-      src={src}
-      className="swiper-image"
-      style={{ cursor: cursor }}
+      className="swiper-image swiper-lazy"
+      decoding="async"
       loading="lazy"
-      onMouseDown={onClickImage}
-      onMouseMove={onMouseMove}
+      src={src}
+      onClick={onClickImage}
       onContextMenu={onRightClickImageOpen}
     />
   );

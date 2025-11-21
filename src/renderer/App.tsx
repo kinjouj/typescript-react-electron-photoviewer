@@ -6,7 +6,7 @@ const App = (): React.JSX.Element => {
   const { files, loading, isError } = useFetchFiles();
 
   if (loading) {
-    return (<ClipLoader loading={loading} className="clip-loader" />);
+    return (<ClipLoader className="clip-loader" loading={loading} />);
   }
 
   if (isError) {

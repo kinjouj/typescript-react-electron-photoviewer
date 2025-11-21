@@ -1,5 +1,5 @@
 import { useSwiper } from 'swiper/react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
   useGlobalShortcutArrowDown,
   useGlobalShortcutArrowLeft,
@@ -11,32 +11,30 @@ import type { DelayChangeHandler, PlayingChangeHandler } from '../types/app.type
 
 interface PhotoViewControlProps {
   isPlaying: boolean
-  handleChangePlaying: PlayingChangeHandler
-  handleChangeDelay: DelayChangeHandler
+  onPlayingChange: PlayingChangeHandler
+  onDelayChange: DelayChangeHandler
 }
 
-const PhotoViewControl = ({ isPlaying, handleChangePlaying, handleChangeDelay }: PhotoViewControlProps): React.JSX.Element => {
+const PhotoViewControl = ({ isPlaying, onDelayChange, onPlayingChange }: PhotoViewControlProps): React.JSX.Element => {
   const swiper = useSwiper();
+  const handleLeftPress = useCallback(() => swiper.slidePrev(), [swiper]);
+  const handleRightPress = useCallback(() => swiper.slideNext(), [swiper]);
 
   useEffect(() => {
-    if (isPlaying) {
-      swiper.autoplay.start();
-    } else {
-      swiper.autoplay.stop();
-    }
+    swiper.autoplay[isPlaying ? 'start' : 'stop']();
   }, [ isPlaying, swiper ]);
 
-  useGlobalShortcutSpace(handleChangePlaying);
-  useGlobalShortcutArrowUp(handleChangeDelay);
-  useGlobalShortcutArrowDown(handleChangeDelay);
-  useGlobalShortcutArrowLeft(swiper);
-  useGlobalShortcutArrowRight(swiper);
+  useGlobalShortcutSpace(onPlayingChange);
+  useGlobalShortcutArrowUp(onDelayChange);
+  useGlobalShortcutArrowDown(onDelayChange);
+  useGlobalShortcutArrowLeft(handleLeftPress);
+  useGlobalShortcutArrowRight(handleRightPress);
 
   return (
     <div className="swiper-header">
       <div className="swiper-header-right-pane">
-        <button type="button" onClick={handleChangePlaying}>
-          <i className={isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'} style={{ fontSize: '1.58em' }}></i>
+        <button type="button" onClick={onPlayingChange}>
+          <i className={isPlaying ? 'fa-solid fa-pause fa-icon' : 'fa-solid fa-play fa-icon'}></i>
         </button>
       </div>
     </div>

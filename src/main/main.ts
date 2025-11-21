@@ -1,5 +1,5 @@
 import * as path from 'node:path';
-import { app, dialog, BrowserWindow, ipcMain, globalShortcut, Notification } from 'electron';
+import { app, dialog, BrowserWindow, ipcMain, globalShortcut, Notification, session } from 'electron';
 import {
   IPC_CHANNEL_ON_DOWN_PRESSED,
   IPC_CHANNEL_ON_LEFT_PRESSED,
@@ -74,7 +74,7 @@ const registerShortcuts = (win: BrowserWindow): void => {
 };
 
 app.whenReady().then(async () => {
-  setupIPCListener();
+  await session.defaultSession.clearCache();
 
   const result = await dialog.showOpenDialog({
     title: 'photoviewer',
@@ -84,6 +84,7 @@ app.whenReady().then(async () => {
 
   if (!result.canceled && result.filePaths.length > 0) {
     selectedPath = result.filePaths[0];
+    setupIPCListener();
     createWindow().then((win) => {
       win.on('focus', () => registerShortcuts(win));
       win.on('blur', () => globalShortcut.unregisterAll());
