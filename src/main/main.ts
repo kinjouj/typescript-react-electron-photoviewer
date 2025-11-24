@@ -74,13 +74,13 @@ const registerShortcuts = (win: BrowserWindow): void => {
 };
 
 app.whenReady().then(async () => {
-  await session.defaultSession.clearCache();
-
   const result = await dialog.showOpenDialog({
     title: 'photoviewer',
     properties: ['openDirectory'],
     defaultPath: app.getPath('desktop'),
   });
+
+  await session.defaultSession.clearCache();
 
   if (!result.canceled && result.filePaths.length > 0) {
     selectedPath = result.filePaths[0];

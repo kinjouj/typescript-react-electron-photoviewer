@@ -29,9 +29,9 @@ html, body, #root {
   height: 100%;
 }
 
-.swiper-image {
-  width: 100% !important;
-  height: 100% !important;
+.swiper-main-image {
+  width: 100%;
+  height: calc(100% - 52px) !important;
   object-fit: fill;
 }
 
@@ -58,9 +58,10 @@ html, body, #root {
 
 .swiper-thumb-container {
   width: 100%;
-  height: 55px;
+  height: 52px;
   position: absolute;
   bottom: 0px;
+  overflow: visible;
 }
 
 .swiper-thumb-slide {
@@ -68,6 +69,15 @@ html, body, #root {
   height: 50px;
 }
 
-.swiper-slide-thumb-active {
-  border: 3px solid darkorange;
+.swiper-thumb-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.swiper-slide-thumb-active > img {
+  border: 3px solid transparent;
+  box-sizing: border-box;
+  border-color: darkorange;
+  flex-shrink: 0 !important;
 }

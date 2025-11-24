@@ -30,7 +30,7 @@ const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element =
       onSwiper={onStartup}>
       {files.map((file) => (
         <SwiperSlide key={file} className="swiper-thumb-slide">
-          <img className="swiper-image" decoding="async" loading="lazy" src={file} />
+          <img className="swiper-thumb-image" decoding="async" loading="lazy" src={file} />
         </SwiperSlide>
       ))}
     </Swiper>
