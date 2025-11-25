@@ -1,5 +1,7 @@
 import { useSwiper } from 'swiper/react';
 import { useCallback, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 import {
   useGlobalShortcutArrowDown,
   useGlobalShortcutArrowLeft,
@@ -17,6 +19,7 @@ interface PhotoViewControlProps {
 
 const PhotoViewControl = ({ isPlaying, onDelayChange, onPlayingChange }: PhotoViewControlProps): React.JSX.Element => {
   const swiper = useSwiper();
+  const faIcon = isPlaying ? faPause : faPlay;
   const handleLeftPress = useCallback(() => swiper.slidePrev(), [swiper]);
   const handleRightPress = useCallback(() => swiper.slideNext(), [swiper]);
 
@@ -34,7 +37,7 @@ const PhotoViewControl = ({ isPlaying, onDelayChange, onPlayingChange }: PhotoVi
     <div className="swiper-header">
       <div className="swiper-header-right-pane">
         <button type="button" onClick={onPlayingChange}>
-          <i className={isPlaying ? 'fa-solid fa-pause fa-icon' : 'fa-solid fa-play fa-icon'}></i>
+          <FontAwesomeIcon icon={faIcon} style={{ fontSize: '1.28em' }} />
         </button>
       </div>
     </div>

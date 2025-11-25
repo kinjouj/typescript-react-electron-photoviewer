@@ -5,10 +5,6 @@ html, body, #root {
   overflow: hidden;
 }
 
-.fa-icon {
-  font-size: 1.58em;
-}
-
 .clip-loader {
   position: absolute;
   top: 50%;

@@ -47,6 +47,8 @@ const createWindow = async (): Promise<BrowserWindow> => {
       webSecurity: true,
     },
   });
+  win.setMenu(null);
+
   await win.loadFile(path.resolve(__dirname, 'index.html'));
   win.once('ready-to-show', () => {
     // win.webContents.openDevTools({ mode: 'detach' });
