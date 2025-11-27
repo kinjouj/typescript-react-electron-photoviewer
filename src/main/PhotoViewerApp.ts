@@ -21,6 +21,7 @@ export default class PhotoViewerApp {
       height: 650,
       autoHideMenuBar: true,
       fullscreenable: false,
+      resizable: false,
       webPreferences: {
         preload: path.resolve(__dirname, 'preload.js'),
         contextIsolation: true,
