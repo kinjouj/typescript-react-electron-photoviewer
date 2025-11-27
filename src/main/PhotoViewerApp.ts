@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import { BrowserWindow, session } from 'electron';
-import IPCHandlers from '../ipc/ipcHandlers';
+import IPCHandlers from '../ipc/IPCHandlers';
 import ShortcutManager from './utils/ShortcutManager';
 
 export default class PhotoViewerApp {

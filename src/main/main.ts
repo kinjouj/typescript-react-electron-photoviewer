@@ -1,4 +1,4 @@
-import { app as electron, dialog } from 'electron';
+import { app as electronApp, dialog } from 'electron';
 import PhotoViewerApp from './PhotoViewerApp';
 
 const selectDirectory = async (): Promise<string | null> => {
@@ -6,7 +6,7 @@ const selectDirectory = async (): Promise<string | null> => {
     const result = await dialog.showOpenDialog({
       title: 'photoviewer',
       properties: ['openDirectory'],
-      defaultPath: electron.getPath('desktop'),
+      defaultPath: electronApp.getPath('desktop'),
     });
 
     if (result.canceled || result.filePaths.length === 0) {
@@ -20,25 +20,25 @@ const selectDirectory = async (): Promise<string | null> => {
   }
 };
 
-electron.disableHardwareAcceleration();
+electronApp.disableHardwareAcceleration();
 
-void electron.whenReady().then(async () => {
+void electronApp.whenReady().then(async () => {
   const selectedPath = await selectDirectory();
 
   if (selectedPath === null) {
-    electron.quit();
+    electronApp.quit();
     return;
   }
 
   try {
-    await PhotoViewerApp.start(selectedPath, () => electron.quit());
+    await PhotoViewerApp.start(selectedPath, () => electronApp.quit());
   } catch (error) {
     console.error(error);
-    electron.quit();
+    electronApp.quit();
   }
 });
 
-electron.on('will-quit', () => {
+electronApp.on('will-quit', () => {
   try {
     PhotoViewerApp.unregisterShortcut();
   } catch (error) {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import RendererClient from '../api/rendererClient';
+import RendererClient from '../api/RendererClient';
 import type { AfterChangeCallback } from '../types/app.types';
 
 interface AfterChangeHandlerResult {

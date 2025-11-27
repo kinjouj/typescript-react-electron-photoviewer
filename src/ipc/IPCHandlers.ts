@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants/main/ipc';
-import Client from '../main/api/client';
+import Client from '../main/api/Client';
 
 export default class IPCHandlers {
   public static setup(selectedPath: string): void {

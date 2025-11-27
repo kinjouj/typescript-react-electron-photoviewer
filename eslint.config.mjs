@@ -128,7 +128,6 @@ export default defineConfig(
           "**/components/!(index).{jsx,tsx}": "PASCAL_CASE",
           "**/constants/*.ts": "CAMEL_CASE",
           "**/reducers/*.ts": "CAMEL_CASE",
-          "**/api/*": "CAMEL_CASE",
           "**/index.{ts,tsx}": "CAMEL_CASE",
         },
         {
