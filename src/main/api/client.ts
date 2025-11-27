@@ -1,12 +1,13 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
-const imageExtensions = new Set([ '.jpg', '.jpeg', '.png', '.webp', '.gif' ]);
+const imageExtensions = new Set([ '.jpg', '.jpeg', '.png', '.webp' ]);
 
 export default class Client {
   public static async getFiles(directory: string): Promise<string[]> {
     try {
       const entries = await fs.readdir(directory, { withFileTypes: true });
+
       return entries
         .filter((entry) => {
           if (!entry.isFile()) {

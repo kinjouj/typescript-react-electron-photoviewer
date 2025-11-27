@@ -1,3 +1,5 @@
+import type { GlobalShortcutChannel } from '../../types/channel';
+
 export default class RendererClient {
   public static async fetchFiles(): Promise<string[]> {
     return await window.electronAPI.requestFiles();
@@ -7,7 +9,7 @@ export default class RendererClient {
     window.electronAPI.updateTitle(title);
   }
 
-  public static removeListener(channel: string, callback: () => void): () => void {
+  public static removeListener(channel: GlobalShortcutChannel, callback: () => void): () => void {
     return () => window.electronAPI.removeListener(channel, callback);
   }
 }

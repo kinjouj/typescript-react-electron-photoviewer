@@ -1,4 +1,4 @@
-import { FETCH_ACTION_ERROR, FETCH_ACTION_START, FETCH_ACTION_SUCCESS } from '../constants';
+import { FETCH_ACTION_ERROR, FETCH_ACTION_START, FETCH_ACTION_SUCCESS } from '../../constants/renderer';
 
 type FetchStartAction = { type: typeof FETCH_ACTION_START };
 type FetchSuccessAction<T> = { type: typeof FETCH_ACTION_SUCCESS, payload: T };

@@ -1,6 +1,6 @@
 import { ClipLoader } from 'react-spinners';
 import { useFetchFiles } from './hooks';
-import { PhotoViewSwiper } from './components';
+import { PhotoViewer } from './components';
 
 const App = (): React.JSX.Element => {
   const { files, loading, isError } = useFetchFiles();
@@ -18,7 +18,7 @@ const App = (): React.JSX.Element => {
   }
 
   return (
-    <PhotoViewSwiper files={files} />
+    <PhotoViewer files={files} />
   );
 };
 

@@ -67,6 +67,14 @@ export default defineConfig(
         },
       ],
       "@stylistic/max-statements-per-line": ["error", { max: 2 }],
+      "@stylistic/no-multi-spaces": [
+        "error",
+        {
+          "exceptions": {
+            "VariableDeclarator": true,
+          },
+        },
+      ],
       "@stylistic/semi": ["error", "always"],
       "@stylistic/spaced-comment": "off",
       "@typescript-eslint/array-type": "error",

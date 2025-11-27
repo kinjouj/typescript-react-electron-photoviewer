@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import type { GlobalShortcutChannel } from '../../../types/channel';
 
-export const useGlobalShortcut = (channel: string, callback: () => void): void => {
+export const useGlobalShortcut = (channel: GlobalShortcutChannel, callback: () => void): void => {
   useEffect(() => {
     window.electronAPI.onGlobalShortcut(channel, callback);
 

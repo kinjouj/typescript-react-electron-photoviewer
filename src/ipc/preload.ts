@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants';
+import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants/main/ipc';
+import type { GlobalShortcutChannel } from '../types/channel';
 
 /*
 type PayloadData = {
@@ -24,10 +25,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   updateTitle: (title: string): void => {
     ipcRenderer.send(IPC_CHANNEL_UPDATE_TITLE, title);
   },
-  onGlobalShortcut: (channel: string, callback: () => void) => {
+  onGlobalShortcut: (channel: GlobalShortcutChannel, callback: () => void) => {
     ipcRenderer.on(channel, callback);
   },
-  removeListener: (channel: string, callback: () => void) => {
+  removeListener: (channel: GlobalShortcutChannel, callback: () => void) => {
     ipcRenderer.removeListener(channel, callback);
   },
 });

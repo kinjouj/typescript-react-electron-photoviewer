@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { Autoplay, Thumbs, Virtual } from 'swiper/modules';
 import { useSwiperAfterChangeListener } from './';
+import type { Swiper as SwiperType } from 'swiper';
 import type { SwiperProps } from 'swiper/react';
-import type { SwiperType } from '../types/app.types';
 
 export const useSwiperSettings = (files: readonly string[], delay: number): SwiperProps => {
   const { afterChangeHandler } = useSwiperAfterChangeListener(files, delay);
@@ -24,10 +24,9 @@ export const useSwiperSettings = (files: readonly string[], delay: number): Swip
     slideToClickedSlide: false,
     speed: 800,
     onSlideChangeTransitionStart(swiper): void {
+      const thumbSwiper = swiper.params.thumbs?.swiper as SwiperType;
       const index = swiper.realIndex;
       afterChangeHandler(index);
-
-      const thumbSwiper = swiper.params.thumbs?.swiper as SwiperType;
 
       if (thumbSwiper) {
         thumbSwiper.slideTo(swiper.realIndex);

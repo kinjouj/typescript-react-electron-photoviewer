@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { IPC_CHANNEL_ON_DOWN_PRESSED, SWIPER_DELAY_STEP, SWIPER_MAX_DELAY } from '../../constants';
+import { IPC_CHANNEL_KEY_PRESSED_DOWN } from '../../../constants/main/ipc';
+import { SWIPER_DELAY_STEP, SWIPER_MAX_DELAY } from '../../../constants/renderer';
 import { useGlobalShortcut } from './';
 import type { DelayChangeHandler } from '../../types/app.types';
 
@@ -8,5 +9,5 @@ export const useGlobalShortcutArrowDown = (handleChangeDelay: DelayChangeHandler
     handleChangeDelay((currentDelay) => Math.min(SWIPER_MAX_DELAY, currentDelay + SWIPER_DELAY_STEP));
   }, [handleChangeDelay]);
 
-  useGlobalShortcut(IPC_CHANNEL_ON_DOWN_PRESSED, increaseDelayHandler);
+  useGlobalShortcut(IPC_CHANNEL_KEY_PRESSED_DOWN, increaseDelayHandler);
 };
