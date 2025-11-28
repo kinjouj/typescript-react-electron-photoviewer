@@ -6,15 +6,23 @@ const App = (): React.JSX.Element => {
   const { files, loading, isError } = useFetchFiles();
 
   if (loading) {
-    return (<ClipLoader className="clip-loader" loading={loading} />);
+    return (<ClipLoader className="absolute-center" loading={loading} />);
   }
 
   if (isError) {
-    return (<div>Error</div>);
+    return (
+      <div className="absolute-center">
+        <h1>Error</h1>
+      </div>
+    );
   }
 
   if (files.length === 0) {
-    return (<div>File is Missing</div>);
+    return (
+      <div className="absolute-center">
+        <h1>File is Missing</h1>
+      </div>
+    );
   }
 
   return (

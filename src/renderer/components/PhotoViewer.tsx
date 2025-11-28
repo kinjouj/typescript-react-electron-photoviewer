@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { SWIPER_DEFAULT_DELAY } from '../../constants/renderer';
 import { useDelay, usePlaying, useSwiperSettings } from '../hooks';
 import { ClickableImage, PhotoViewControl, ThumbSwiper } from '.';
-import type { Swiper as SwiperType } from 'swiper';
+import type { SwiperType } from '../types/app.types';
 import 'swiper/css';
 import 'swiper/css/thumbs';
 import 'swiper/css/virtual';
 
 const PhotoViewer = ({ files }: { files: readonly string[] }): React.JSX.Element => {
   const [ thumbSwiper, setThumbSwiper ] = useState<SwiperType | null>(null);
-  const { isPlaying, handlePlayingChange } = usePlaying();
-  const { delay, handleDelayChange } = useDelay(2000);
+  const { isPlaying, handlePlayingChange } = usePlaying(files.length);
+  const { delay, handleDelayChange } = useDelay(SWIPER_DEFAULT_DELAY);
   const settings = useSwiperSettings(files, delay);
 
   return (

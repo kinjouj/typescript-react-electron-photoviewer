@@ -19,18 +19,25 @@ export default class PhotoViewerApp {
     const win = new BrowserWindow({
       width: 800,
       height: 650,
-      autoHideMenuBar: true,
       fullscreenable: false,
       resizable: false,
+      hasShadow: false,
       webPreferences: {
         preload: path.resolve(__dirname, 'preload.js'),
         contextIsolation: true,
         nodeIntegration: false,
+        backgroundThrottling: false,
+        enablePreferredSizeMode: true,
+        enableWebSQL: false,
+        sandbox: true,
+        spellcheck: false,
+        partition: 'nopersist',
+        plugins: false,
         webSecurity: true,
-        devTools: false,
+        webgl: false,
       },
     });
-    win.setMenu(null);
+    win.setMenuBarVisibility(false);
 
     win.once('ready-to-show', () => {
       // win.webContents.openDevTools({ mode: 'detach' });

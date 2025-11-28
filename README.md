@@ -48,3 +48,4 @@ yarn start
 |**Mouse Left Click(Image Left Half)**|Previous Image|
 |**Mouse Left Click(Image Right Half)**|Next Image|
 |**Mouse Right Click**|Open Image|
+|**App Quit**|ESC|

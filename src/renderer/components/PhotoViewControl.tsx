@@ -19,7 +19,6 @@ interface PhotoViewControlProps {
 
 const PhotoViewControl = ({ isPlaying, onDelayChange, onPlayingChange }: PhotoViewControlProps): React.JSX.Element => {
   const swiper = useSwiper();
-  const faIcon = isPlaying ? faPause : faPlay;
   const handleLeftPress = useCallback(() => swiper.slidePrev(), [swiper]);
   const handleRightPress = useCallback(() => swiper.slideNext(), [swiper]);
 
@@ -37,7 +36,7 @@ const PhotoViewControl = ({ isPlaying, onDelayChange, onPlayingChange }: PhotoVi
     <div className="swiper-header">
       <div className="swiper-header-right-pane">
         <button type="button" onClick={onPlayingChange}>
-          <FontAwesomeIcon icon={faIcon} style={{ fontSize: '1.28em' }} />
+          <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} style={{ fontSize: '1.28em' }} />
         </button>
       </div>
     </div>
