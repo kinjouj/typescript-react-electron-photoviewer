@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Autoplay, Thumbs, Virtual } from 'swiper/modules';
-import { useSwiperAfterChangeListener } from './';
+import { useSwiperAfterChangeListener } from './useSwiperAfterChangeListener';
 import type { SwiperProps } from 'swiper/react';
 import type { SwiperType } from '../types/app.types';
 

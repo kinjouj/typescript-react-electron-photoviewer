@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { IPC_CHANNEL_KEY_PRESSED_DOWN } from '../../../constants/main/ipc';
 import { SWIPER_DELAY_STEP, SWIPER_MAX_DELAY } from '../../../constants/renderer';
-import { useGlobalShortcut } from './';
+import { useGlobalShortcut } from './useGlobalShortcut';
 import type { DelayChangeHandler } from '../../types/app.types';
 
 export const useGlobalShortcutArrowDown = (handleChangeDelay: DelayChangeHandler): void => {

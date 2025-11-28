@@ -1,6 +1,6 @@
 import { ClipLoader } from 'react-spinners';
 import { useFetchFiles } from './hooks';
-import { PhotoViewer } from './components';
+import PhotoViewer from './components/PhotoViewer';
 
 const App = (): React.JSX.Element => {
   const { files, loading, isError } = useFetchFiles();
