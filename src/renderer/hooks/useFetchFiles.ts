@@ -8,7 +8,7 @@ export const useFetchFiles = (): FetchState<readonly string[]> => {
 
   useEffect(() => {
     let cancelled = false;
-    const fetchFiles = async (): Promise<void> => {
+    void (async (): Promise<void> => {
       dispatch({ type: FETCH_ACTION_START });
 
       try {
@@ -22,8 +22,7 @@ export const useFetchFiles = (): FetchState<readonly string[]> => {
           dispatch({ type: FETCH_ACTION_ERROR });
         }
       }
-    };
-    void fetchFiles();
+    })();
 
     return (): void => {
       cancelled = true;

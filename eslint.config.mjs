@@ -44,6 +44,7 @@ export default defineConfig(
       "curly": ["error", "all"],
       "no-empty": ["error", { allowEmptyCatch: false }],
       "no-constant-condition": "error",
+      "no-restricted-imports": ["error", { "paths": ["./"] }],
       "@stylistic/arrow-parens": ["error", "always"],
       "@stylistic/array-bracket-spacing": ["error", "always", { singleValue: false }],
       "@stylistic/brace-style": ["error", "1tbs", { allowSingleLine: true }],
@@ -92,14 +93,6 @@ export default defineConfig(
           selector: ["typeAlias", "interface", "class", "enum"],
           format: ["PascalCase"],
         },
-        {
-          selector: ["variable", "function"],
-          format: ["PascalCase"],
-          custom: {
-            regex: "^[A-Z]",
-            match: true,
-          },
-        },
       ],
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
@@ -128,6 +121,7 @@ export default defineConfig(
           "**/components/!(index).{jsx,tsx}": "PASCAL_CASE",
           "**/constants/*.ts": "CAMEL_CASE",
           "**/reducers/*.ts": "CAMEL_CASE",
+          "**/types/!(index).ts": "KEBAB_CASE",
         },
         {
           ignoreMiddleExtensions: true,
