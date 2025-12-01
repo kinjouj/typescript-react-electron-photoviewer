@@ -8,6 +8,7 @@ export const useFetchFiles = (): FetchState<readonly string[]> => {
 
   useEffect(() => {
     let cancelled = false;
+
     void (async (): Promise<void> => {
       dispatch({ type: FETCH_ACTION_START });
 

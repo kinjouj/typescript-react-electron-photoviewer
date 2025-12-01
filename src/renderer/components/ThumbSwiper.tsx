@@ -11,9 +11,7 @@ interface ThumbSwiperProps {
 const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element => {
   const onStartup = useCallback((swiper: SwiperType): void => {
     onSwiper(swiper);
-    setTimeout((): void => {
-      swiper.slideTo(0);
-    }, 500);
+    requestAnimationFrame(() => swiper.slideTo(0));
   }, [onSwiper]);
 
   return (
@@ -24,7 +22,7 @@ const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element =
       freeMode={true}
       lazyPreloadPrevNext={1}
       modules={[Thumbs]}
-      slidesPerView={8}
+      slidesPerView={10}
       spaceBetween={5}
       watchSlidesProgress={true}
       onSwiper={onStartup}>

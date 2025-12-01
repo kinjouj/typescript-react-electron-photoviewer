@@ -1,24 +1,19 @@
 import * as path from 'node:path';
 import { BrowserWindow, session } from 'electron';
 import IPCHandlers from '../ipc/IPCHandlers';
-import ShortcutManager from './utils/ShortcutManager';
 
 export default class PhotoViewerApp {
-  public static async start(selectedPath: string, onQuit: () => void): Promise<void> {
+  public static async start(selectedPath: string): Promise<void> {
     IPCHandlers.setup(selectedPath);
-    await this.createWindow(onQuit);
+    await this.createWindow();
   }
 
-  public static unregisterShortcut(): void {
-    ShortcutManager.unregister();
-  }
-
-  private static async createWindow(onQuit: () => void): Promise<void> {
+  private static async createWindow(): Promise<void> {
     await session.defaultSession.clearCache();
 
     const win = new BrowserWindow({
       width: 800,
-      height: 650,
+      height: 600,
       fullscreenable: false,
       resizable: false,
       hasShadow: false,
@@ -29,7 +24,6 @@ export default class PhotoViewerApp {
         backgroundThrottling: false,
         enablePreferredSizeMode: true,
         enableWebSQL: false,
-        sandbox: true,
         spellcheck: false,
         partition: 'nopersist',
         plugins: false,
@@ -41,14 +35,6 @@ export default class PhotoViewerApp {
 
     win.once('ready-to-show', () => {
       // win.webContents.openDevTools({ mode: 'detach' });
-    });
-
-    win.on('focus', () => {
-      ShortcutManager.register(win, onQuit);
-    });
-
-    win.on('blur', () => {
-      this.unregisterShortcut();
     });
 
     await win.loadFile(path.resolve(__dirname, 'index.html'));

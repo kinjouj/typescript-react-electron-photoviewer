@@ -1,5 +1,6 @@
 import { app as electronApp, dialog } from 'electron';
 import PhotoViewerApp from './PhotoViewerApp';
+import ShortcutManager from './utils/ShortcutManager';
 
 const selectDirectory = async (): Promise<string | null> => {
   try {
@@ -20,8 +21,6 @@ const selectDirectory = async (): Promise<string | null> => {
   }
 };
 
-electronApp.disableHardwareAcceleration();
-
 void electronApp.whenReady().then(async () => {
   const selectedPath = await selectDirectory();
 
@@ -31,17 +30,27 @@ void electronApp.whenReady().then(async () => {
   }
 
   try {
-    await PhotoViewerApp.start(selectedPath, () => electronApp.quit());
-  } catch (error) {
-    console.error(error);
+    await PhotoViewerApp.start(selectedPath);
+  } catch {
     electronApp.quit();
   }
 });
 
-electronApp.on('will-quit', () => {
-  try {
-    PhotoViewerApp.unregisterShortcut();
-  } catch (error) {
-    console.error(error);
-  }
+electronApp.on('browser-window-focus', (_event, window) => {
+  ShortcutManager.register(
+    (eventKey) => {
+      if (eventKey === 'quit') {
+        electronApp.quit();
+        return;
+      }
+
+      if (!window.isDestroyed()) {
+        window.webContents.send(eventKey);
+      }
+    }
+  );
+});
+
+electronApp.on('browser-window-blur', () => {
+  ShortcutManager.unregister();
 });
