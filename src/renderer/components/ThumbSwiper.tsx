@@ -22,7 +22,7 @@ const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element =
       freeMode={true}
       lazyPreloadPrevNext={1}
       modules={[Thumbs]}
-      slidesPerView={10}
+      slidesPerView={8}
       spaceBetween={5}
       watchSlidesProgress={true}
       onSwiper={onStartup}>

@@ -1,6 +1,7 @@
 import { globalShortcut, Notification } from 'electron';
 import {
   IPC_CHANNEL_KEY_PRESSED_DOWN,
+  IPC_CHANNEL_KEY_PRESSED_ESCAPE,
   IPC_CHANNEL_KEY_PRESSED_LEFT,
   IPC_CHANNEL_KEY_PRESSED_RIGHT,
   IPC_CHANNEL_KEY_PRESSED_SPACE,
@@ -28,7 +29,7 @@ export default class ShortcutManager {
     registerShortcut('Left', () => onKey(IPC_CHANNEL_KEY_PRESSED_LEFT));
     registerShortcut('Right', () => onKey(IPC_CHANNEL_KEY_PRESSED_RIGHT));
     registerShortcut('Space', () => onKey(IPC_CHANNEL_KEY_PRESSED_SPACE));
-    registerShortcut('Escape', () => onKey('quit'));
+    registerShortcut('Escape', () => onKey(IPC_CHANNEL_KEY_PRESSED_ESCAPE));
 
     this.isRegistered = true;
   }

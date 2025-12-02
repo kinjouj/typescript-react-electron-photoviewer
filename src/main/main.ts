@@ -1,4 +1,5 @@
-import { app as electronApp, dialog } from 'electron';
+import { app as electronApp, dialog, type BrowserWindow } from 'electron';
+import { IPC_CHANNEL_KEY_PRESSED_ESCAPE } from '../constants/main/ipc';
 import PhotoViewerApp from './PhotoViewerApp';
 import ShortcutManager from './utils/ShortcutManager';
 
@@ -21,6 +22,10 @@ const selectDirectory = async (): Promise<string | null> => {
   }
 };
 
+const hasOpener = (window: BrowserWindow): boolean => {
+  return window.webContents.opener !== null;
+};
+
 void electronApp.whenReady().then(async () => {
   const selectedPath = await selectDirectory();
 
@@ -37,9 +42,13 @@ void electronApp.whenReady().then(async () => {
 });
 
 electronApp.on('browser-window-focus', (_event, window) => {
+  if (hasOpener(window)) {
+    return;
+  }
+
   ShortcutManager.register(
     (eventKey) => {
-      if (eventKey === 'quit') {
+      if (eventKey === IPC_CHANNEL_KEY_PRESSED_ESCAPE) {
         electronApp.quit();
         return;
       }
@@ -51,6 +60,10 @@ electronApp.on('browser-window-focus', (_event, window) => {
   );
 });
 
-electronApp.on('browser-window-blur', () => {
+electronApp.on('browser-window-blur', (_event, window) => {
+  if (hasOpener(window)) {
+    return;
+  }
+
   ShortcutManager.unregister();
 });

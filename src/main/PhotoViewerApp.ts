@@ -1,5 +1,5 @@
 import * as path from 'node:path';
-import { BrowserWindow, session } from 'electron';
+import { BrowserWindow, screen, session } from 'electron';
 import IPCHandlers from '../ipc/IPCHandlers';
 
 export default class PhotoViewerApp {
@@ -32,6 +32,20 @@ export default class PhotoViewerApp {
       },
     });
     win.setMenuBarVisibility(false);
+
+    win.webContents.setWindowOpenHandler(() => {
+      const { x, y, width, height } = screen.getDisplayMatching(win.getBounds()).workArea;
+
+      return {
+        action: 'allow',
+        overrideBrowserWindowOptions: {
+          x,
+          y,
+          width,
+          height,
+        },
+      };
+    });
 
     win.once('ready-to-show', () => {
       // win.webContents.openDevTools({ mode: 'detach' });

@@ -42,7 +42,7 @@ const ClickableImage = ({ src }: { src: string }): React.JSX.Element => {
 
   return (
     <img
-      className="swiper-main-image swiper-lazy"
+      className="swiper-main-image"
       src={src}
       decoding="async"
       loading="lazy"
