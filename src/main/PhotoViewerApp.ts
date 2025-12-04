@@ -20,15 +20,14 @@ export default class PhotoViewerApp {
       webPreferences: {
         preload: path.resolve(__dirname, 'preload.js'),
         contextIsolation: true,
+        disableBlinkFeatures: 'AnimationControlled',
         nodeIntegration: false,
         backgroundThrottling: false,
-        enablePreferredSizeMode: true,
         enableWebSQL: false,
         spellcheck: false,
         partition: 'nopersist',
-        plugins: false,
+        v8CacheOptions: 'bypassHeatCheck',
         webSecurity: true,
-        webgl: false,
       },
     });
     win.setMenuBarVisibility(false);

@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs } from 'swiper/modules';
 import type { SwiperType } from '../types/app.types';
+import 'swiper/css';
+import 'swiper/css/thumbs';
 
 interface ThumbSwiperProps {
   files: readonly string[]
