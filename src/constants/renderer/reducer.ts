@@ -1,3 +1,0 @@
-export const FETCH_ACTION_START   = 'FETCH_START';
-export const FETCH_ACTION_SUCCESS = 'FETCH_SUCCESS';
-export const FETCH_ACTION_ERROR   = 'FETCH_ERROR';

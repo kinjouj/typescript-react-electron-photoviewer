@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants/main/ipc';
-import type { GlobalShortcutChannel } from '../types/channel';
+import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from './channels';
+import type { GlobalShortcutChannel } from './channel-type';
 
 /*
 type PayloadData = {

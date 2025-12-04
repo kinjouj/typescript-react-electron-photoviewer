@@ -1,5 +1,5 @@
 import { app as electronApp, dialog, type BrowserWindow } from 'electron';
-import { IPC_CHANNEL_KEY_PRESSED_ESCAPE } from '../constants/main/ipc';
+import { IPC_CHANNEL_KEY_PRESSED_ESCAPE } from '../ipc/channels';
 import PhotoViewerApp from './PhotoViewerApp';
 import ShortcutManager from './utils/ShortcutManager';
 

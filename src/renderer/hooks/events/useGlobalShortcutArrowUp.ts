@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { IPC_CHANNEL_KEY_PRESSED_UP } from '../../../constants/main/ipc';
-import { SWIPER_DELAY_STEP, SWIPER_MIN_DELAY } from '../../../constants/renderer';
+import { IPC_CHANNEL_KEY_PRESSED_UP } from '../../../ipc/channels';
+import { SWIPER_DELAY_STEP, SWIPER_MIN_DELAY } from '../../constants';
 import { useGlobalShortcut } from './useGlobalShortcut';
 import type { DelayChangeHandler } from '../../types/app.types';
 

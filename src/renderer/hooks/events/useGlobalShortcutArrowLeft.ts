@@ -1,4 +1,4 @@
-import { IPC_CHANNEL_KEY_PRESSED_LEFT } from '../../../constants/main/ipc';
+import { IPC_CHANNEL_KEY_PRESSED_LEFT } from '../../../ipc/channels';
 import { useGlobalShortcut } from './useGlobalShortcut';
 
 export const useGlobalShortcutArrowLeft = (callback: () => void): void => {

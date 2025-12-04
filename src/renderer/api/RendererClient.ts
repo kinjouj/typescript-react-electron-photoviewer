@@ -1,4 +1,4 @@
-import type { GlobalShortcutChannel } from '../../types/channel';
+import type { GlobalShortcutChannel } from '../../ipc/channel-type';
 
 export default class RendererClient {
   public static async fetchFiles(): Promise<string[]> {

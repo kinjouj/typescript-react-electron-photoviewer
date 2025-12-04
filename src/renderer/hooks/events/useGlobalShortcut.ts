@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { GlobalShortcutChannel } from '../../../types/channel';
+import type { GlobalShortcutChannel } from '../../../ipc/channel-type';
 
 export const useGlobalShortcut = (channel: GlobalShortcutChannel, callback: () => void): void => {
   useEffect(() => {

@@ -6,7 +6,7 @@ import {
   IPC_CHANNEL_KEY_PRESSED_RIGHT,
   IPC_CHANNEL_KEY_PRESSED_SPACE,
   IPC_CHANNEL_KEY_PRESSED_UP
-} from '../../constants/main/ipc';
+} from '../../ipc/channels';
 
 export default class ShortcutManager {
   private static isRegistered = false;

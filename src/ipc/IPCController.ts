@@ -1,8 +1,8 @@
 import { BrowserWindow, ipcMain } from 'electron';
-import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from '../constants/main/ipc';
 import Client from '../main/api/Client';
+import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from './channels';
 
-export default class IPCHandlers {
+export default class IPCController {
   public static setup(selectedPath: string): void {
     ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, (): Promise<string[]> => {
       return Client.getFiles(selectedPath);

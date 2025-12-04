@@ -1,15 +1,17 @@
-import { FETCH_ACTION_ERROR, FETCH_ACTION_START, FETCH_ACTION_SUCCESS } from '../../constants/renderer';
-
-type FetchStartAction = { type: typeof FETCH_ACTION_START };
-type FetchSuccessAction<T> = { type: typeof FETCH_ACTION_SUCCESS, payload: T };
-type FetchErrorAction = { type: typeof FETCH_ACTION_ERROR };
-type Action<T> = FetchStartAction | FetchSuccessAction<T> | FetchErrorAction;
+export const FETCH_ACTION_START   = 'FETCH_START';
+export const FETCH_ACTION_SUCCESS = 'FETCH_SUCCESS';
+export const FETCH_ACTION_ERROR   = 'FETCH_ERROR';
 
 export interface FetchState<T> {
   files: T
   loading: boolean
   isError: boolean
 }
+
+type FetchStartAction = { type: typeof FETCH_ACTION_START };
+type FetchSuccessAction<T> = { type: typeof FETCH_ACTION_SUCCESS, payload: T };
+type FetchErrorAction = { type: typeof FETCH_ACTION_ERROR };
+type Action<T> = FetchStartAction | FetchSuccessAction<T> | FetchErrorAction;
 
 export const fetchReducer = <T>(state: FetchState<T>, action: Action<T>): FetchState<T> => {
   switch (action.type) {

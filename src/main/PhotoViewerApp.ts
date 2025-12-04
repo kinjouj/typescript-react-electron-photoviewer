@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import { BrowserWindow, screen, session } from 'electron';
-import IPCHandlers from '../ipc/IPCHandlers';
+import IPCHandlers from '../ipc/IPCController';
 
 export default class PhotoViewerApp {
   public static async start(selectedPath: string): Promise<void> {

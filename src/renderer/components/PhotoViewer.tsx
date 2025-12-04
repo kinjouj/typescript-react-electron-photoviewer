@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { SWIPER_DEFAULT_DELAY } from '../../constants/renderer';
+import { SWIPER_DEFAULT_DELAY } from '../constants';
 import { useDelay, usePlaying, useSwiperSettings } from '../hooks';
 import ClickableImage from './ClickableImage';
 import PhotoViewControl from './PhotoViewControl';
