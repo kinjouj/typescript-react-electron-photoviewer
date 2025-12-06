@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { SWIPER_DEFAULT_DELAY } from '../constants';
+import { SWIPER_DEFAULT_DELAY } from '../constants/swiper';
 import { useDelay, usePlaying, useSwiperSettings } from '../hooks';
 import ClickableImage from './ClickableImage';
-import PhotoViewControl from './PhotoViewControl';
+import PlaybackControls from './PlaybackControls';
 import ThumbSwiper from './ThumbSwiper';
 import type { SwiperType } from '../types/app.types';
 import 'swiper/css';
@@ -27,7 +27,7 @@ const PhotoViewer = ({ files }: { files: readonly string[] }): React.JSX.Element
             <ClickableImage src={file} />
           </SwiperSlide>
         ))}
-        <PhotoViewControl
+        <PlaybackControls
           isPlaying={isPlaying}
           onDelayChange={handleDelayChange}
           onPlayingChange={handlePlayingChange} />

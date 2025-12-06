@@ -1,11 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import {
-  FETCH_ACTION_ERROR,
-  FETCH_ACTION_START,
-  FETCH_ACTION_SUCCESS,
-  fetchReducer,
-  type FetchState
-} from '../reducers/fetchReducer';
+import { FetchActionType, fetchReducer, type FetchState } from '../reducers/fetchReducer';
 import RendererClient from '../api/RendererClient';
 
 export const useFetchFiles = (): FetchState<readonly string[]> => {
@@ -15,17 +9,17 @@ export const useFetchFiles = (): FetchState<readonly string[]> => {
     let cancelled = false;
 
     void (async (): Promise<void> => {
-      dispatch({ type: FETCH_ACTION_START });
+      dispatch({ type: FetchActionType.START });
 
       try {
         const result = await RendererClient.fetchFiles();
 
         if (!cancelled) {
-          dispatch({ type: FETCH_ACTION_SUCCESS, payload: result });
+          dispatch({ type: FetchActionType.SUCCESS, payload: result });
         }
       } catch {
         if (!cancelled) {
-          dispatch({ type: FETCH_ACTION_ERROR });
+          dispatch({ type: FetchActionType.ERROR });
         }
       }
     })();

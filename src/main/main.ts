@@ -22,20 +22,26 @@ const selectDirectory = async (): Promise<string | null> => {
   }
 };
 
+/*
+const isActiveRootWindow = (window: BrowserWindow): boolean => {
+  return !window.isDestroyed() && window.webContents.opener === null;
+};
+*/
+
 const hasOpener = (window: BrowserWindow): boolean => {
   return window.webContents.opener !== null;
 };
 
 void electronApp.whenReady().then(async () => {
-  const selectedPath = await selectDirectory();
-
-  if (selectedPath === null) {
-    electronApp.quit();
-    return;
-  }
-
   try {
-    await PhotoViewerApp.start(selectedPath);
+    const selectedPath = await selectDirectory();
+
+    if (selectedPath === null) {
+      electronApp.quit();
+      return;
+    }
+
+    PhotoViewerApp.start(selectedPath);
   } catch {
     electronApp.quit();
   }
@@ -65,5 +71,9 @@ electronApp.on('browser-window-blur', (_event, window) => {
     return;
   }
 
+  ShortcutManager.unregister();
+});
+
+electronApp.on('will-quit', () => {
   ShortcutManager.unregister();
 });

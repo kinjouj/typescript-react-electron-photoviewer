@@ -11,13 +11,13 @@ import {
 } from '../hooks/events';
 import type { DelayChangeHandler, PlayingChangeHandler } from '../types/app.types';
 
-interface PhotoViewControlProps {
+interface PlaybackControlsProps {
   isPlaying: boolean
   onPlayingChange: PlayingChangeHandler
   onDelayChange: DelayChangeHandler
 }
 
-const PhotoViewControl = ({ isPlaying, onDelayChange, onPlayingChange }: PhotoViewControlProps): React.JSX.Element => {
+const PlaybackControls = ({ isPlaying, onDelayChange, onPlayingChange }: PlaybackControlsProps): React.JSX.Element => {
   const swiper = useSwiper();
   const handleLeftPress = useCallback(() => swiper.slidePrev(), [swiper]);
   const handleRightPress = useCallback(() => swiper.slideNext(), [swiper]);
@@ -43,4 +43,4 @@ const PhotoViewControl = ({ isPlaying, onDelayChange, onPlayingChange }: PhotoVi
   );
 };
 
-export default PhotoViewControl;
+export default PlaybackControls;

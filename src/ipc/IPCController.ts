@@ -1,9 +1,12 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import Client from '../main/api/Client';
+import PhotoViewerApp from '../main/PhotoViewerApp';
 import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from './channels';
 
 export default class IPCController {
-  public static setup(selectedPath: string): void {
+  public static setup(): void {
+    const selectedPath = PhotoViewerApp.getSelectedPath();
+
     ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, (): Promise<string[]> => {
       return Client.getFiles(selectedPath);
     });

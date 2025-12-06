@@ -10,7 +10,7 @@ export const useDelay = (initialDelay: number): DelayHookResult => {
   const [ delay, setDelay ] = useState(initialDelay);
 
   const handleDelayChange = useCallback((callback: (curerntDelay: number) => number) => {
-    setDelay((curerntDelay) => callback(curerntDelay));
+    setDelay((currentDelay) => callback(currentDelay));
   }, []);
 
   return { delay, handleDelayChange };

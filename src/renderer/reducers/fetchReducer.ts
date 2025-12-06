@@ -1,6 +1,8 @@
-export const FETCH_ACTION_START   = 'FETCH_START';
-export const FETCH_ACTION_SUCCESS = 'FETCH_SUCCESS';
-export const FETCH_ACTION_ERROR   = 'FETCH_ERROR';
+export enum FetchActionType {
+  START = 'FETCH_START',
+  SUCCESS = 'FETCH_SUCCESS',
+  ERROR = 'FETCH_ERROR'
+}
 
 export interface FetchState<T> {
   files: T
@@ -8,28 +10,27 @@ export interface FetchState<T> {
   isError: boolean
 }
 
-type FetchStartAction = { type: typeof FETCH_ACTION_START };
-type FetchSuccessAction<T> = { type: typeof FETCH_ACTION_SUCCESS, payload: T };
-type FetchErrorAction = { type: typeof FETCH_ACTION_ERROR };
-type Action<T> = FetchStartAction | FetchSuccessAction<T> | FetchErrorAction;
+type FetchAction<T> = { type: FetchActionType.START }
+  | { type: FetchActionType.SUCCESS, payload: T }
+  | { type: FetchActionType.ERROR };
 
-export const fetchReducer = <T>(state: FetchState<T>, action: Action<T>): FetchState<T> => {
+export const fetchReducer = <T>(state: FetchState<T>, action: FetchAction<T>): FetchState<T> => {
   switch (action.type) {
-    case FETCH_ACTION_START:
+    case FetchActionType.START:
       return {
         ...state,
         loading: true,
         isError: false,
       };
 
-    case FETCH_ACTION_SUCCESS:
+    case FetchActionType.SUCCESS:
       return {
         files: action.payload,
         loading: false,
         isError: false,
       };
 
-    case FETCH_ACTION_ERROR:
+    case FetchActionType.ERROR:
       return {
         ...state,
         loading: false,

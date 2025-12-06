@@ -3,13 +3,17 @@ import { BrowserWindow, screen, session } from 'electron';
 import IPCHandlers from '../ipc/IPCController';
 
 export default class PhotoViewerApp {
-  public static async start(selectedPath: string): Promise<void> {
-    IPCHandlers.setup(selectedPath);
-    await this.createWindow();
+  private static selectedPath: string;
+
+  public static start(selectedPath: string): void {
+    this.selectedPath = selectedPath;
+    IPCHandlers.setup();
+
+    this.createWindow();
   }
 
-  private static async createWindow(): Promise<void> {
-    await session.defaultSession.clearCache();
+  private static createWindow(): void {
+    void session.defaultSession.clearCache();
 
     const win = new BrowserWindow({
       width: 800,
@@ -20,7 +24,6 @@ export default class PhotoViewerApp {
       webPreferences: {
         preload: path.resolve(__dirname, 'preload.js'),
         contextIsolation: true,
-        disableBlinkFeatures: 'AnimationControlled',
         nodeIntegration: false,
         backgroundThrottling: false,
         enableWebSQL: false,
@@ -32,24 +35,28 @@ export default class PhotoViewerApp {
     });
     win.setMenuBarVisibility(false);
 
-    win.webContents.setWindowOpenHandler(() => {
-      const { x, y, width, height } = screen.getDisplayMatching(win.getBounds()).workArea;
-
-      return {
-        action: 'allow',
-        overrideBrowserWindowOptions: {
-          x,
-          y,
-          width,
-          height,
-        },
-      };
-    });
-
     win.once('ready-to-show', () => {
       // win.webContents.openDevTools({ mode: 'detach' });
+      win.webContents.setWindowOpenHandler(() => {
+        const display = screen.getDisplayMatching(win.getBounds());
+        const { x, y, width, height } = display.workArea;
+
+        return {
+          action: 'allow',
+          overrideBrowserWindowOptions: {
+            x,
+            y,
+            width,
+            height,
+          },
+        };
+      });
     });
 
-    await win.loadFile(path.resolve(__dirname, 'index.html'));
+    void win.loadFile(path.resolve(__dirname, 'index.html'));
+  }
+
+  public static getSelectedPath(): string {
+    return this.selectedPath;
   }
 };

@@ -11,7 +11,7 @@ interface ThumbSwiperProps {
 }
 
 const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element => {
-  const onStartup = useCallback((swiper: SwiperType): void => {
+  const handleSwiperInit = useCallback((swiper: SwiperType): void => {
     onSwiper(swiper);
     requestAnimationFrame(() => swiper.slideTo(0));
   }, [onSwiper]);
@@ -27,7 +27,7 @@ const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element =
       slidesPerView={8}
       spaceBetween={5}
       watchSlidesProgress={true}
-      onSwiper={onStartup}>
+      onSwiper={handleSwiperInit}>
       {files.map((file) => (
         <SwiperSlide key={file} className="swiper-thumb-slide">
           <img className="swiper-thumb-image" decoding="async" loading="lazy" src={file} />
