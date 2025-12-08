@@ -1,4 +1,5 @@
 export const IPC_CHANNEL_REQUEST_FILES      = 'renderer:file:list';
+export const IPC_CHANNEL_OPEN_PATH          = 'renderer:file:open-path';
 export const IPC_CHANNEL_UPDATE_TITLE       = 'window:update-title';
 export const IPC_CHANNEL_KEY_PRESSED_ESCAPE = 'keyboard:pressed:escape';
 export const IPC_CHANNEL_KEY_PRESSED_SPACE  = 'keyboard:pressed:space';

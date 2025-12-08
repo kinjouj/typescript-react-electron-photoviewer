@@ -37,7 +37,7 @@ const ClickableImage = ({ src }: { src: string }): React.JSX.Element => {
   }, [swiper]);
 
   const onRightClickImageOpen = useCallback((event: React.MouseEvent<HTMLImageElement>) => {
-    window.open(event.currentTarget.src, '_blank', 'width=500,height=500');
+    window.electronAPI.openPath(event.currentTarget.src);
   }, []);
 
   return (

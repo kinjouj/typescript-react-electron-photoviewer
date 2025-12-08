@@ -1,7 +1,8 @@
-import { BrowserWindow, ipcMain } from 'electron';
+import { fileURLToPath } from 'node:url';
+import { BrowserWindow, ipcMain, shell } from 'electron';
 import Client from '../main/api/Client';
 import PhotoViewerApp from '../main/PhotoViewerApp';
-import { IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from './channels';
+import { IPC_CHANNEL_OPEN_PATH, IPC_CHANNEL_REQUEST_FILES, IPC_CHANNEL_UPDATE_TITLE } from './channels';
 
 export default class IPCController {
   public static setup(): void {
@@ -9,6 +10,10 @@ export default class IPCController {
 
     ipcMain.handle(IPC_CHANNEL_REQUEST_FILES, (): Promise<string[]> => {
       return Client.getFiles(selectedPath);
+    });
+
+    ipcMain.on(IPC_CHANNEL_OPEN_PATH, (_event, path: string): void => {
+      void shell.openPath(fileURLToPath(path));
     });
 
     ipcMain.on(IPC_CHANNEL_UPDATE_TITLE, (event, title: string): void => {
