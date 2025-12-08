@@ -8,7 +8,6 @@ export default class PhotoViewerApp {
   public static start(selectedPath: string): void {
     this.selectedPath = selectedPath;
     IPCHandlers.setup();
-
     this.createWindow();
   }
 

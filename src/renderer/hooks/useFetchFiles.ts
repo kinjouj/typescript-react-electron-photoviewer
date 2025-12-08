@@ -3,7 +3,7 @@ import { FetchActionType, fetchReducer, type FetchState } from '../reducers/fetc
 import RendererClient from '../api/RendererClient';
 
 export const useFetchFiles = (): FetchState<readonly string[]> => {
-  const [ state, dispatch ] = useReducer(fetchReducer<string[]>, { files: [], loading: true, isError: false });
+  const [state, dispatch] = useReducer(fetchReducer<string[]>, { files: [], loading: true, isError: false });
 
   useEffect(() => {
     let cancelled = false;

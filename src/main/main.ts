@@ -22,12 +22,6 @@ const selectDirectory = async (): Promise<string | null> => {
   }
 };
 
-/*
-const isActiveRootWindow = (window: BrowserWindow): boolean => {
-  return !window.isDestroyed() && window.webContents.opener === null;
-};
-*/
-
 const hasOpener = (window: BrowserWindow): boolean => {
   return window.webContents.opener !== null;
 };

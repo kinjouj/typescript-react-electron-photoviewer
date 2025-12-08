@@ -11,7 +11,7 @@ import 'swiper/css/thumbs';
 import 'swiper/css/virtual';
 
 const PhotoViewer = ({ files }: { files: readonly string[] }): React.JSX.Element => {
-  const [ thumbSwiper, setThumbSwiper ] = useState<SwiperType | null>(null);
+  const [thumbSwiper, setThumbSwiper] = useState<SwiperType | null>(null);
   const { isPlaying, handlePlayingChange } = usePlaying(files.length);
   const { delay, handleDelayChange } = useDelay(SWIPER_DEFAULT_DELAY);
   const settings = useSwiperSettings(files, delay);

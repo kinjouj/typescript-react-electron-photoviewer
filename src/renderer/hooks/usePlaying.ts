@@ -7,7 +7,7 @@ interface PlayingHookResult {
 }
 
 export const usePlaying = (filesSize: number): PlayingHookResult => {
-  const [ isPlaying, setIsPlaying ] = useState(filesSize > 1);
+  const [isPlaying, setIsPlaying] = useState(filesSize > 1);
 
   const handlePlayingChange = useCallback(() => {
     setIsPlaying((currentPlaying) => !currentPlaying);

@@ -15,7 +15,7 @@ export const useSwiperSettings = (files: readonly string[], delay: number): Swip
     },
     lazyPreloadPrevNext: 1,
     loop: files.length > 1,
-    modules: [ Autoplay, Thumbs, Virtual ],
+    modules: [Autoplay, Thumbs, Virtual],
     observer: true,
     observeParents: true,
     preventClicks: false,
@@ -33,7 +33,7 @@ export const useSwiperSettings = (files: readonly string[], delay: number): Swip
         thumbSwiper.slideTo(swiper.realIndex);
       }
     },
-  }), [ delay, files.length, afterChangeHandler ]);
+  }), [delay, files.length, afterChangeHandler]);
 
   return settings;
 };

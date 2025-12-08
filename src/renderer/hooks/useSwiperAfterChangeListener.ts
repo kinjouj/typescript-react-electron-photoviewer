@@ -10,7 +10,7 @@ export const useSwiperAfterChangeListener = (files: readonly string[], delay: nu
     const title = `[delay:${delay}]  ${file}  [${page + 1}/${files.length}]`;
     RendererClient.updateWindowTitle(title);
     currentPageRef.current = page;
-  }, [ delay, files ]);
+  }, [delay, files]);
 
   useEffect(() => {
     afterChangeHandler(currentPageRef.current);

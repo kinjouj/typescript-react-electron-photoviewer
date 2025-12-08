@@ -7,7 +7,7 @@ interface DelayHookResult {
 }
 
 export const useDelay = (initialDelay: number): DelayHookResult => {
-  const [ delay, setDelay ] = useState(initialDelay);
+  const [delay, setDelay] = useState(initialDelay);
 
   const handleDelayChange = useCallback((callback: (curerntDelay: number) => number) => {
     setDelay((currentDelay) => callback(currentDelay));

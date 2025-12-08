@@ -8,5 +8,5 @@ export const useGlobalShortcut = (channel: GlobalShortcutChannel, callback: () =
     return (): void => {
       window.electronAPI.removeListener(channel, callback);
     };
-  }, [ channel, callback ]);
+  }, [channel, callback]);
 };

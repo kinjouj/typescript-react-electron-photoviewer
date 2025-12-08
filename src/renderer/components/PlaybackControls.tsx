@@ -24,7 +24,7 @@ const PlaybackControls = ({ isPlaying, onDelayChange, onPlayingChange }: Playbac
 
   useEffect(() => {
     swiper.autoplay[isPlaying ? 'start' : 'stop']();
-  }, [ isPlaying, swiper ]);
+  }, [isPlaying, swiper]);
 
   useGlobalShortcutSpace(onPlayingChange);
   useGlobalShortcutArrowUp(onDelayChange);
