@@ -61,7 +61,7 @@ html, body, #root {
 }
 
 .swiper-thumb-slide {
-  height: 50px;
+  height: 52px;
 }
 
 .swiper-thumb-image {
@@ -72,8 +72,7 @@ html, body, #root {
 }
 
 .swiper-slide-thumb-active > img {
-  border: 3px solid transparent;
+  border: 3px solid darkorange;
   box-sizing: border-box;
-  border-color: darkorange;
   flex-shrink: 0 !important;
 }

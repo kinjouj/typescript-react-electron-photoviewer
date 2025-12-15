@@ -25,7 +25,7 @@ const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element =
       lazyPreloadPrevNext={1}
       modules={[Thumbs]}
       slidesPerView={8}
-      spaceBetween={5}
+      spaceBetween={1}
       watchSlidesProgress={true}
       onSwiper={handleSwiperInit}>
       {files.map((file) => (

@@ -1,5 +1,5 @@
 import * as path from 'node:path';
-import { BrowserWindow, screen, session } from 'electron';
+import { BrowserWindow, session } from 'electron';
 import IPCHandlers from '../ipc/IPCController';
 
 export default class PhotoViewerApp {
@@ -36,6 +36,7 @@ export default class PhotoViewerApp {
 
     win.once('ready-to-show', () => {
       // win.webContents.openDevTools({ mode: 'detach' });
+      /*
       win.webContents.setWindowOpenHandler(() => {
         const display = screen.getDisplayMatching(win.getBounds());
         const { x, y, width, height } = display.workArea;
@@ -50,6 +51,7 @@ export default class PhotoViewerApp {
           },
         };
       });
+      */
     });
 
     void win.loadFile(path.resolve(__dirname, 'index.html'));

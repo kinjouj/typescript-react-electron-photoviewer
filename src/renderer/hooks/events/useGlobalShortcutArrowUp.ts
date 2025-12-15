@@ -1,8 +1,10 @@
 import { useCallback } from 'react';
 import { IPC_CHANNEL_KEY_PRESSED_UP } from '../../../ipc/channels';
-import { SWIPER_DELAY_STEP, SWIPER_MIN_DELAY } from '../../constants/swiper';
+import { SWIPER_DELAY_STEP } from '../../constants/swiper';
 import { useGlobalShortcut } from './useGlobalShortcut';
 import type { DelayChangeHandler } from '../../types/app.types';
+
+const SWIPER_MIN_DELAY = 1000;
 
 export const useGlobalShortcutArrowUp = (handleChangeDelay: DelayChangeHandler): void => {
   const decreaseDelayHandler = useCallback(() => {
