@@ -1,5 +1,4 @@
 {
-  "editor.tabSize": 2,
   "files.exclude": {
     "dist": true,
     "node_modules": true,
@@ -20,6 +19,7 @@
   "[javascript]": {
     "editor.tabSize": 2
   },
+  "editor.tabSize": 2,
   "typescript.format.semicolons": "insert",
   "typescript.preferences.preferTypeOnlyAutoImports": true
 }
