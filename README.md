@@ -1,4 +1,4 @@
-## typeScript-react-electron-photoviewer
+## typescript-react-electron-photoviewer
 
 
 ### Prerequisites
