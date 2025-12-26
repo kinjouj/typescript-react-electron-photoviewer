@@ -4,7 +4,6 @@ import stylistic from "@stylistic/eslint-plugin";
 import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
-import inlinePropsPlugin from "eslint-plugin-no-inline-props";
 import globals from "globals";
 import checkFile from "eslint-plugin-check-file";
 import importPlugin from "eslint-plugin-import";
@@ -18,7 +17,6 @@ export default defineConfig(
   react.configs.flat.recommended,
   react.configs.flat["jsx-runtime"],
   reactHooks.configs.flat.recommended,
-  inlinePropsPlugin.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
