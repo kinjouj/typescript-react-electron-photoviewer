@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react';
-import { FetchActionType, fetchReducer, type FetchState } from '../reducers/fetchReducer';
+import { fetchReducer } from '../reducers/fetchReducer';
 import RendererClient from '../api/RendererClient';
+import { FetchActionType, type FetchState } from '../types/app.types';
 
 export const useFetchFiles = (): FetchState<readonly string[]> => {
   const [state, dispatch] = useReducer(fetchReducer<string[]>, { files: [], loading: true, isError: false });

@@ -1,14 +1,4 @@
-export enum FetchActionType {
-  START = 'FETCH_START',
-  SUCCESS = 'FETCH_SUCCESS',
-  ERROR = 'FETCH_ERROR'
-}
-
-export interface FetchState<T> {
-  files: T
-  loading: boolean
-  isError: boolean
-}
+import { FetchActionType, type FetchState } from '../types/app.types';
 
 type FetchAction<T> = { type: FetchActionType.START }
   | { type: FetchActionType.SUCCESS, payload: T }

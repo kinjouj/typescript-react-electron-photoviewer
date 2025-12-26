@@ -18,8 +18,5 @@
   },
   "[javascript]": {
     "editor.tabSize": 2
-  },
-  "editor.tabSize": 2,
-  "typescript.format.semicolons": "insert",
-  "typescript.preferences.preferTypeOnlyAutoImports": true
+  }
 }
