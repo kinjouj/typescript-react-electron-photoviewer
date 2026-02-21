@@ -7,6 +7,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import checkFile from "eslint-plugin-check-file";
 import importPlugin from "eslint-plugin-import";
+import perfectionist from "eslint-plugin-perfectionist";
 
 export default defineConfig(
   { ignores: ["**/*.js", "**/*.mjs", "node_modules/**"] },
@@ -37,6 +38,7 @@ export default defineConfig(
       "react-hooks": reactHooks,
       "check-file": checkFile,
       "import": importPlugin,
+      perfectionist,
     },
     rules: {
       "curly": ["error", "all"],
@@ -57,15 +59,6 @@ export default defineConfig(
       ],
       "@stylistic/jsx-closing-bracket-location": "off",
       "@stylistic/jsx-quotes": ["error", "prefer-double"],
-      "@stylistic/jsx-sort-props": [
-        "error",
-        {
-          "reservedFirst": ["key", "ref", "id", "type", "name", "className"],
-          "callbacksLast": true,
-          "shorthandLast": true,
-          "noSortAlphabetically": true,
-        },
-      ],
       "@stylistic/max-statements-per-line": ["error", { max: 2 }],
       "@stylistic/no-multi-spaces": [
         "error",
@@ -141,6 +134,39 @@ export default defineConfig(
           ],
           "newlines-between": "never",
         },
+      ],
+      "perfectionist/sort-jsx-props": [
+        "error",
+        {
+          "type": "unsorted",
+          "groups": [
+            "almost-props",
+            "unknown",
+            "standard",
+            "callback",
+            "shorthand-prop",
+          ],
+          "customGroups": [
+            {
+              "groupName": "almost-props",
+              "elementNamePattern": ["^ref$", "^key$", "^type$", "^id$", "^href$", "^src$", "^name$"]
+            },
+            {
+              "groupName": "standard",
+              "elementNamePattern": [
+                "^role$",
+                "^aria-.+$",
+                "^data-.+$",
+                "^className$",
+                "^style$",
+              ]
+            },
+            {
+              "groupName": "callback",
+              "elementNamePattern": "^on.+"
+            }
+          ]
+        }
       ],
     },
     settings: {

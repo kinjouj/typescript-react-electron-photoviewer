@@ -18,7 +18,6 @@ const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element =
 
   return (
     <Swiper
-      className="swiper-thumb-container"
       centeredSlides={true}
       centeredSlidesBounds={true}
       freeMode={true}
@@ -27,10 +26,11 @@ const ThumbSwiper = ({ files, onSwiper }: ThumbSwiperProps): React.JSX.Element =
       slidesPerView={8}
       spaceBetween={1}
       watchSlidesProgress={true}
+      className="swiper-thumb-container"
       onSwiper={handleSwiperInit}>
       {files.map((file) => (
         <SwiperSlide key={file} className="swiper-thumb-slide">
-          <img className="swiper-thumb-image" decoding="async" loading="lazy" src={file} />
+          <img src={file} decoding="async" loading="lazy" className="swiper-thumb-image" />
         </SwiperSlide>
       ))}
     </Swiper>

@@ -42,10 +42,10 @@ const ClickableImage = ({ src }: { src: string }): React.JSX.Element => {
 
   return (
     <img
-      className="swiper-main-image"
       src={src}
       decoding="async"
       loading="lazy"
+      className="swiper-main-image"
       onClick={onClickImage}
       onContextMenu={onRightClickImageOpen} />
   );

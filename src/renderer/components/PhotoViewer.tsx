@@ -24,7 +24,7 @@ const PhotoViewer = ({ files }: { files: readonly string[] }): React.JSX.Element
         thumbs={{ swiper: thumbSwiper }}
         {...settings}>
         {files.map((file, index) => (
-          <SwiperSlide key={file} className="swiper-image-block" virtualIndex={index}>
+          <SwiperSlide key={file} virtualIndex={index} className="swiper-image-block">
             <ClickableImage src={file} />
           </SwiperSlide>
         ))}
