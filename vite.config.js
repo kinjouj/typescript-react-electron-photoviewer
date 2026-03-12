@@ -1,7 +1,7 @@
 import { resolve } from "node:path"
 import { defineConfig } from "vite"
 import electron from "vite-plugin-electron";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   base: "./",
@@ -27,7 +27,7 @@ export default defineConfig({
     ])
   ],
   build: {
-    minify: "esbuild",
+    //minify: "esbuild",
     outDir: "./dist",
     emptyOutDir: true,
     copyPublicDir: false,
