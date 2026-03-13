@@ -10,7 +10,7 @@ import importPlugin from "eslint-plugin-import";
 import perfectionist from "eslint-plugin-perfectionist";
 
 export default defineConfig(
-  { ignores: ["**/*.js", "**/*.mjs", "node_modules/**"] },
+  { ignores: ["**/*.js", "**/*.mjs"] },
   eslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   tseslint.configs.stylisticTypeChecked,
@@ -22,7 +22,7 @@ export default defineConfig(
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        project: ["tsconfig.json", "tsconfig.node.json"],
         tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
