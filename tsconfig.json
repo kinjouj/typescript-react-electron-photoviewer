@@ -11,7 +11,7 @@
     "strict": true,
     "jsx": "react-jsx",
     "isolatedModules": true,
-    "types": ["node", "electron"]
+    "types": ["node", "electron", "vite/client"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "package"]
