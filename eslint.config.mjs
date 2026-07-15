@@ -42,6 +42,7 @@ export default defineConfig(
     },
     rules: {
       "curly": ["error", "all"],
+      "eqeqeq": ["error", "always", { "null": "always" }],
       "no-empty": ["error", { allowEmptyCatch: false }],
       "no-constant-condition": "error",
       "no-restricted-imports": ["error", { "paths": ["./"] }],
@@ -96,6 +97,7 @@ export default defineConfig(
           destructuredArrayIgnorePattern: "^_",
         },
       ],
+      "@typescript-eslint/strict-boolean-expressions": "error",
       "react/button-has-type": "error",
       "react/function-component-definition": ["error", {
         namedComponents: "arrow-function",

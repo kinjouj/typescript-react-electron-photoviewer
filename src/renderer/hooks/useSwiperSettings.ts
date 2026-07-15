@@ -29,7 +29,7 @@ export const useSwiperSettings = (files: readonly string[], delay: number): Swip
 
       const thumbSwiper = swiper.params.thumbs?.swiper as SwiperType;
 
-      if (thumbSwiper) {
+      if (thumbSwiper !== null && thumbSwiper !== undefined) {
         thumbSwiper.slideTo(swiper.realIndex);
       }
     },
