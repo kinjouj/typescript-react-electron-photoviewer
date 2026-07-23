@@ -14,7 +14,7 @@ export const useSwiperSettings = (files: readonly string[], delay: number): Swip
       pauseOnMouseEnter: false,
     },
     lazyPreloadPrevNext: 1,
-    loop: files.length > 1,
+    loop: files.length > 3,
     modules: [Autoplay, Thumbs, Virtual],
     observer: true,
     observeParents: true,
